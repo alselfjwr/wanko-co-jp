@@ -22,7 +22,11 @@ if ( $btn_url && 0 === strpos( $btn_url, '/' ) ) {
 		<?php endif; ?>
 	</div>
 	<div class="container hero__inner">
-		<h1 class="hero__catch"><?php wanko_the_lines( 'hero_catch' ); ?></h1>
+		<h1 class="hero__catch">
+			<?php foreach ( preg_split( '/\r\n|\r|\n/', (string) wanko_get( 'hero_catch' ) ) as $line ) : ?>
+				<?php if ( '' !== trim( $line ) ) : ?><span class="hero__line"><?php echo esc_html( $line ); ?></span><?php endif; ?>
+			<?php endforeach; ?>
+		</h1>
 		<p class="hero__lead"><?php wanko_the_lines( 'hero_lead' ); ?></p>
 		<?php if ( wanko_get( 'hero_btn_label' ) ) : ?>
 			<a class="btn btn--primary btn--lg" href="<?php echo esc_url( $btn_url ); ?>"><?php echo esc_html( wanko_get( 'hero_btn_label' ) ); ?><?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?></a>
