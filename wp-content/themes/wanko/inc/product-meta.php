@@ -248,10 +248,24 @@ add_action( 'admin_enqueue_scripts', 'wanko_product_category_admin_assets' );
  * @return string
  */
 function wanko_product_category_image( $term, $size = 'wanko-card' ) {
+	// 1. Image set on the category.
 	$image_id = (int) get_term_meta( $term->term_id, 'wanko_image_id', true );
 	if ( $image_id ) {
-		return (string) wp_get_attachment_image_url( $image_id, $size );
+		$url = wp_get_attachment_image_url( $image_id, $size );
+		if ( $url ) {
+			return (string) $url;
+		}
 	}
+	// 2. Theme default photos for the initial categories.
+	$defaults = array(
+		'food'  => 'photo-cat-food.jpg',
+		'treat' => 'photo-cat-treat.jpg',
+		'goods' => 'photo-cat-goods.jpg',
+	);
+	if ( isset( $defaults[ $term->slug ] ) ) {
+		return WANKO_URI . '/assets/img/' . $defaults[ $term->slug ];
+	}
+	// 3. First product's featured image.
 	$q = new WP_Query( array(
 		'post_type'      => 'products',
 		'posts_per_page' => 1,
@@ -260,7 +274,10 @@ function wanko_product_category_image( $term, $size = 'wanko-card' ) {
 		'tax_query'      => array( array( 'taxonomy' => 'product_category', 'field' => 'term_id', 'terms' => $term->term_id ) ), // phpcs:ignore WordPress.DB.SlowDBQuery
 	) );
 	if ( $q->have_posts() ) {
-		return (string) get_the_post_thumbnail_url( $q->posts[0], $size );
+		$url = get_the_post_thumbnail_url( $q->posts[0], $size );
+		if ( $url ) {
+			return (string) $url;
+		}
 	}
 	return '';
 }

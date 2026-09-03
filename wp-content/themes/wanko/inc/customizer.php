@@ -28,7 +28,7 @@ function wanko_defaults() {
 		'shop_cat_name'    => 'にゃんにゃんデリバリーフーズ',
 		'shop_cat_desc'    => '猫の「食べる」をもっとラクに。猫の状態やライフステージに合わせたフードを定期的にお届けする、カスタマイズ可能なキャットフードの定期便です。',
 		'shop_cat_url'     => 'https://nyan-nyan-delivery.myshopify.com/',
-		'shop_cat_image'   => '',
+		'shop_cat_image'   => $img . 'photo-nyandeli.jpg',
 		'shop_dog_name'    => 'わんわんデリバリーフーズ',
 		'shop_dog_desc'    => 'わんちゃんの健康を考えたフードを、ご自宅へ定期的にお届けするサービスです。',
 		'shop_dog_url'     => '',
@@ -36,7 +36,7 @@ function wanko_defaults() {
 		'shop_all_name'    => 'ペット総合ショップ',
 		'shop_all_desc'    => 'フードから日用品まで、ペットとの暮らしをまるごとサポート。',
 		'shop_all_url'     => '',
-		'shop_all_image'   => '',
+		'shop_all_image'   => $img . 'photo-all-pets.jpg',
 
 		// トップ：商品紹介.
 		'products_lead'    => 'わんちゃん・ねこちゃんの毎日に寄り添う、こだわりのフードとおやつ、暮らしの用品をご紹介します。',
@@ -44,7 +44,7 @@ function wanko_defaults() {
 		// 私たちの想い（ブランドストーリー）.
 		'story_catch'      => 'ペットと人が、もっと幸せに暮らせる毎日を。',
 		'story_lead'       => '合同会社わんわんわんこは、ペット用品・ペットおやつの卸売・販売から始まりました。「自分の家族に与えたいものだけを届けたい」。その想いが、私たちのすべての原点です。',
-		'story_image'      => $img . 'photo-dog-grass.jpg',
+		'story_image'      => $img . 'photo-story.jpg',
 		'story_1_title'    => 'なぜ「わんわんわんこ」を始めたのか',
 		'story_1_body'     => "私たちの事業は、ペット用品・ペットおやつの卸売・販売から始まりました。小売店さまや飼い主さまと接するなかで、「本当に安心できる商品を、必要なときに届けたい」という想いが強くなり、合同会社わんわんわんこを立ち上げました。",
 		'story_2_title'    => '犬や猫との暮らしについて感じていること',
@@ -65,7 +65,7 @@ function wanko_defaults() {
 		'value_4'          => 'パートナーと共に育つ：お取引先・スタッフ・ペットとの長い関係',
 
 		// 私たちのこだわり（COMMITMENT）.
-		'commitment_image' => $img . 'photo-dog-food.jpg',
+		'commitment_image' => $img . 'photo-commitment.jpg',
 		'commitment_catch' => '「この会社から買う理由」を、ひとつずつ積み重ねる。',
 		'commitment_lead'  => '商品そのものだけでなく、選び方・届け方・その後のサポートまで。私たちが大切にしている4つのこだわりです。',
 		'commitment_1_title' => '原材料へのこだわり',

@@ -9,7 +9,7 @@ $image = wanko_get( 'story_image' );
 <section class="section section--story" id="philosophy">
 	<div class="container story<?php echo $image ? ' has-image' : ''; ?>">
 		<?php if ( $image ) : ?>
-			<figure class="story__image"><img src="<?php echo esc_url( $image ); ?>" alt="" loading="lazy"></figure>
+			<figure class="story__image"><img src="<?php echo esc_url( $image ); ?>" alt="" width="1200" height="900"></figure>
 		<?php endif; ?>
 		<div class="story__text">
 			<?php wanko_section_title( 'Our Philosophy', '私たちの想い', 'left' ); ?>

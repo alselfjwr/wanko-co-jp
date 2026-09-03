@@ -92,7 +92,8 @@ docker run --rm -p 8080:80 \
 
 ## 素材について
 
-- `assets/img/logo.svg` と `assets/img/photo-*.jpg` は現行サイト（wanko.co.jp）から引き継いだ素材です。写真のライセンス（ストック素材の場合は新サイトでの利用可否）は公開前に確認してください。
+- `assets/img/photo-*.jpg` は、わんわんわんこ様からご提供いただいた写真（Zoho WorkDrive「202609_ご提供素材」）をWeb用に縮小したものです。`photo-dog-food.jpg` のみ現行サイトの素材で、ストック写真の可能性があるため利用可否を確認してください。
+- `assets/img/logo.svg`（ヘッダー用）、`logo-full.png`（英字入り）、`mascot.png`（チワワのマスコット）は、ご提供のロゴAIデータから書き出したものです。
 - にゃんにゃんデリバリーフーズは BASE（https://wanwanwanko.official.ec/）と Shopify（https://nyan-nyan-delivery.myshopify.com/）の2店舗があり、初期値は Shopify 側です。カスタマイザーから変更できます。
 
 ## 開発メモ
