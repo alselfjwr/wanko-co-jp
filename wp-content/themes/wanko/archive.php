@@ -7,8 +7,8 @@
 
 get_header();
 
-$is_column = is_post_type_archive( 'column' ) || is_tax( 'column_category' ) || 'column' === get_post_type();
-$root_ja   = $is_column ? 'わんにゃんコラム' : 'お知らせ';
+$is_column = is_post_type_archive( 'column' ) || is_tax( 'column_category' ) || is_tax( 'column_tag' ) || 'column' === get_post_type();
+$root_ja   = $is_column ? 'わんこと暮らすコラム' : 'お知らせ';
 $root_en   = $is_column ? 'Column' : 'News';
 $root_url  = $is_column ? get_post_type_archive_link( 'column' ) : wanko_news_url();
 

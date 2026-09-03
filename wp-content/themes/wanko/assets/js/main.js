@@ -102,3 +102,25 @@
 		}
 	}
 })();
+
+/* Column: auto table of contents from h2/h3 */
+(function () {
+	'use strict';
+	var toc = document.querySelector('[data-toc]');
+	var src = document.querySelector('[data-toc-source]');
+	if (!toc || !src) { return; }
+	var heads = src.querySelectorAll('h2, h3');
+	if (heads.length < 2) { return; }
+	var list = toc.querySelector('.toc__list');
+	heads.forEach(function (h, i) {
+		if (!h.id) { h.id = 'sec-' + (i + 1); }
+		var li = document.createElement('li');
+		if (h.tagName === 'H3') { li.className = 'is-sub'; }
+		var a = document.createElement('a');
+		a.href = '#' + h.id;
+		a.textContent = h.textContent;
+		li.appendChild(a);
+		list.appendChild(li);
+	});
+	toc.hidden = false;
+})();

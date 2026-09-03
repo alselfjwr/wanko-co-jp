@@ -13,6 +13,7 @@ define( 'WANKO_URI', get_template_directory_uri() );
 
 require WANKO_DIR . '/inc/setup.php';
 require WANKO_DIR . '/inc/cpt.php';
+require WANKO_DIR . '/inc/product-meta.php';
 require WANKO_DIR . '/inc/customizer.php';
 require WANKO_DIR . '/inc/template-tags.php';
 require WANKO_DIR . '/inc/activation.php';

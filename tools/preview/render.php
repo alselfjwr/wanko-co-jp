@@ -26,17 +26,24 @@ $mods = array(
 );
 
 $views = array(
-	'index'    => array( 'view' => 'front',   'template' => '',        'title' => 'トップ',          'file' => 'front-page.php' ),
-	'company'  => array( 'view' => 'page',    'template' => 'company', 'title' => '企業情報',         'file' => 'page-company.php' ),
-	'business' => array( 'view' => 'page',    'template' => 'business','title' => '事業内容',         'file' => 'page-business.php' ),
-	'news'     => array( 'view' => 'archive', 'template' => 'post',    'title' => 'お知らせ',         'file' => 'home.php' ),
-	'column'   => array( 'view' => 'archive', 'template' => 'column',  'title' => 'コラム',          'file' => 'archive.php' ),
-	'single'   => array( 'view' => 'single',  'template' => 'post',    'title' => '記事',           'file' => 'single.php' ),
-	'recruit'  => array( 'view' => 'page',    'template' => 'recruit', 'title' => '採用情報',         'file' => 'page-recruit.php' ),
-	'contact'  => array( 'view' => 'page',    'template' => 'contact', 'title' => 'お問い合わせ',       'file' => 'page-contact.php' ),
-	'privacy'  => array( 'view' => 'page',    'template' => 'privacy', 'title' => 'プライバシーポリシー', 'file' => 'page-privacy.php' ),
-	'sitemap'  => array( 'view' => 'page',    'template' => 'sitemap', 'title' => 'サイトマップ',       'file' => 'page-sitemap.php' ),
-	'404'      => array( 'view' => '404',     'template' => '',        'title' => '404',            'file' => '404.php' ),
+	'index'      => array( 'view' => 'front',    'template' => '',           'title' => 'トップ',            'file' => 'front-page.php' ),
+	'about'      => array( 'view' => 'page',     'template' => 'about',      'title' => '私たちについて',       'file' => 'page-about.php' ),
+	'message'    => array( 'view' => 'page',     'template' => 'message',    'title' => '私たちの想い',        'file' => 'page-message.php' ),
+	'philosophy' => array( 'view' => 'page',     'template' => 'philosophy', 'title' => 'ブランド理念',        'file' => 'page-philosophy.php' ),
+	'commitment' => array( 'view' => 'page',     'template' => 'commitment', 'title' => '私たちのこだわり',      'file' => 'page-commitment.php' ),
+	'company'    => array( 'view' => 'page',     'template' => 'company',    'title' => '会社概要',           'file' => 'page-company.php' ),
+	'business'   => array( 'view' => 'page',     'template' => 'business',   'title' => '事業内容',           'file' => 'page-business.php' ),
+	'products'   => array( 'view' => 'archive',  'template' => 'products',   'title' => '商品紹介',           'file' => 'archive-products.php' ),
+	'category'   => array( 'view' => 'taxonomy', 'template' => 'products',   'title' => 'フード',            'file' => 'taxonomy-product_category.php' ),
+	'product'    => array( 'view' => 'product',  'template' => 'products',   'title' => '商品詳細',           'file' => 'single-products.php' ),
+	'news'       => array( 'view' => 'archive',  'template' => 'post',       'title' => 'お知らせ',           'file' => 'home.php' ),
+	'column'     => array( 'view' => 'archive',  'template' => 'column',     'title' => 'コラム',            'file' => 'archive.php' ),
+	'single'     => array( 'view' => 'single',   'template' => 'column',     'title' => '記事',             'file' => 'single.php' ),
+	'recruit'    => array( 'view' => 'page',     'template' => 'recruit',    'title' => '採用情報',           'file' => 'page-recruit.php' ),
+	'contact'    => array( 'view' => 'page',     'template' => 'contact',    'title' => 'お問い合わせ',         'file' => 'page-contact.php' ),
+	'privacy'    => array( 'view' => 'page',     'template' => 'privacy',    'title' => 'プライバシーポリシー',    'file' => 'page-privacy.php' ),
+	'sitemap'    => array( 'view' => 'page',     'template' => 'sitemap',    'title' => 'サイトマップ',         'file' => 'page-sitemap.php' ),
+	'404'        => array( 'view' => '404',      'template' => '',           'title' => '404',              'file' => '404.php' ),
 );
 
 $page_content = array(
@@ -49,7 +56,9 @@ foreach ( $views as $name => $v ) {
 	$GLOBALS['wanko_main_query'] = null;
 	$posts = preview_posts();
 	if ( 'single' === $v['view'] ) {
-		$GLOBALS['wanko_ctx']['post'] = $posts[0];
+		$GLOBALS['wanko_ctx']['post'] = $posts[ array_search( 5, array_column( $posts, 'id' ), true ) ];
+	} elseif ( 'product' === $v['view'] ) {
+		$GLOBALS['wanko_ctx']['post'] = $posts[ array_search( 101, array_column( $posts, 'id' ), true ) ];
 	} elseif ( 'page' === $v['view'] ) {
 		$GLOBALS['wanko_ctx']['post'] = array( 'id' => 100, 'type' => 'page', 'title' => $v['title'], 'date' => '2026-09-01', 'cat' => '', 'excerpt' => '', 'thumb' => '', 'url' => '#', 'content' => isset( $page_content[ $v['template'] ] ) ? $page_content[ $v['template'] ] : '' );
 	} else {

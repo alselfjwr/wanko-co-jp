@@ -23,13 +23,14 @@ wanko_breadcrumb( array( array( 'label' => '採用情報' ) ) );
 
 <section class="section section--alt">
 	<div class="container">
-		<?php wanko_section_title( 'Our Promise', '大切にしていること' ); ?>
-		<ol class="promise-list">
-			<?php for ( $i = 1; $i <= 3; $i++ ) : ?>
+		<?php wanko_section_title( 'Commitment', '大切にしていること' ); ?>
+		<ol class="promise-list promise-list--4">
+			<?php for ( $i = 1; $i <= 4; $i++ ) : ?>
+				<?php if ( ! wanko_get( "commitment_{$i}_title" ) ) { continue; } ?>
 				<li class="promise-item">
 					<span class="promise-item__num"><?php echo esc_html( sprintf( '%02d', $i ) ); ?></span>
-					<h3 class="promise-item__title"><?php echo esc_html( wanko_get( "promise_{$i}_title" ) ); ?></h3>
-					<p class="promise-item__body"><?php wanko_the_lines( "promise_{$i}_body" ); ?></p>
+					<h3 class="promise-item__title"><?php echo esc_html( wanko_get( "commitment_{$i}_title" ) ); ?></h3>
+					<p class="promise-item__body"><?php wanko_the_lines( "commitment_{$i}_body" ); ?></p>
 				</li>
 			<?php endfor; ?>
 		</ol>

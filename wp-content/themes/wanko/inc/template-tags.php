@@ -198,35 +198,137 @@ function wanko_youtube_id( $url ) {
  * @return array
  */
 function wanko_sitemap_tree() {
-	$company = wanko_page_url( 'company' );
-	return array(
-		array(
-			'label'    => '企業情報',
-			'url'      => $company,
-			'children' => array(
-				array( 'label' => 'ごあいさつ', 'url' => $company . '#greeting' ),
-				array( 'label' => '会社概要', 'url' => $company . '#overview' ),
-				array( 'label' => '私たちのお約束', 'url' => $company . '#promise' ),
-			),
+	$about    = wanko_page_url( 'about' );
+	$products = get_post_type_archive_link( 'products' );
+	$tree     = array();
+
+	$children = array();
+	$terms    = get_terms( array( 'taxonomy' => 'product_category', 'hide_empty' => false, 'parent' => 0 ) );
+	if ( $terms && ! is_wp_error( $terms ) ) {
+		foreach ( $terms as $term ) {
+			$children[] = array( 'label' => $term->name, 'url' => get_term_link( $term ) );
+		}
+	}
+	$tree[] = array( 'label' => '商品紹介', 'url' => $products, 'children' => $children );
+
+	$tree[] = array(
+		'label'    => '私たちについて',
+		'url'      => $about,
+		'children' => array(
+			array( 'label' => '私たちの想い', 'url' => wanko_page_url( 'about/message' ) ),
+			array( 'label' => 'ブランド理念', 'url' => wanko_page_url( 'about/philosophy' ) ),
+			array( 'label' => '私たちのこだわり', 'url' => wanko_page_url( 'about/commitment' ) ),
 		),
-		array(
-			'label'    => '事業内容',
-			'url'      => wanko_page_url( 'business' ),
-			'children' => array(
-				array( 'label' => 'ペット用品・ペットおやつの卸売・販売', 'url' => wanko_page_url( 'business' ) . '#wholesale' ),
-				array( 'label' => '主要取引メーカー', 'url' => wanko_page_url( 'business' ) . '#partners' ),
-				array( 'label' => wanko_get( 'shop_cat_name' ), 'url' => wanko_page_url( 'business' ) . '#shops' ),
-				array( 'label' => wanko_get( 'shop_dog_name' ), 'url' => wanko_page_url( 'business' ) . '#shops' ),
-				array( 'label' => wanko_get( 'shop_all_name' ), 'url' => wanko_page_url( 'business' ) . '#shops' ),
-			),
-		),
-		array( 'label' => 'お知らせ', 'url' => wanko_news_url() ),
-		array( 'label' => 'コラム', 'url' => get_post_type_archive_link( 'column' ) ),
-		array( 'label' => '採用情報', 'url' => wanko_page_url( 'recruit' ) ),
-		array( 'label' => 'お問い合わせ', 'url' => wanko_page_url( 'contact' ) ),
-		array( 'label' => 'プライバシーポリシー', 'url' => wanko_page_url( 'privacy' ) ),
-		array( 'label' => 'サイトマップ', 'url' => wanko_page_url( 'sitemap' ) ),
 	);
+	$tree[] = array(
+		'label'    => '会社情報',
+		'url'      => wanko_page_url( 'company' ),
+		'children' => array(
+			array( 'label' => '会社概要', 'url' => wanko_page_url( 'company' ) ),
+			array( 'label' => '事業内容', 'url' => wanko_page_url( 'business' ) ),
+			array( 'label' => '採用情報', 'url' => wanko_page_url( 'recruit' ) ),
+		),
+	);
+	$tree[] = array( 'label' => 'お知らせ', 'url' => wanko_news_url() );
+	$tree[] = array( 'label' => 'コラム', 'url' => get_post_type_archive_link( 'column' ) );
+	$tree[] = array( 'label' => 'お問い合わせ', 'url' => wanko_page_url( 'contact' ) );
+	$tree[] = array( 'label' => 'プライバシーポリシー', 'url' => wanko_page_url( 'privacy' ) );
+	$tree[] = array( 'label' => 'サイトマップ', 'url' => wanko_page_url( 'sitemap' ) );
+	return $tree;
+}
+
+/**
+ * Product card.
+ *
+ * @param int|null $post_id Post ID (defaults to current).
+ */
+function wanko_product_card( $post_id = null ) {
+	$post_id = $post_id ? $post_id : get_the_ID();
+	$terms   = get_the_terms( $post_id, 'product_category' );
+	$cat     = ( $terms && ! is_wp_error( $terms ) ) ? $terms[0]->name : '';
+	$catch   = wanko_product( 'catch', $post_id );
+	$price   = wanko_product( 'price', $post_id );
+	?>
+	<article class="product-card">
+		<a class="product-card__link" href="<?php echo esc_url( get_permalink( $post_id ) ); ?>">
+			<div class="product-card__thumb">
+				<?php if ( has_post_thumbnail( $post_id ) ) : ?>
+					<?php echo get_the_post_thumbnail( $post_id, 'wanko-card', array( 'loading' => 'lazy' ) ); ?>
+				<?php else : ?>
+					<div class="thumb-placeholder"><?php echo wanko_icon( 'box' ); // phpcs:ignore ?></div>
+				<?php endif; ?>
+				<?php if ( $cat ) : ?><span class="product-card__cat"><?php echo esc_html( $cat ); ?></span><?php endif; ?>
+			</div>
+			<div class="product-card__body">
+				<h3 class="product-card__name"><?php echo esc_html( get_the_title( $post_id ) ); ?></h3>
+				<?php if ( $catch ) : ?><p class="product-card__catch"><?php echo esc_html( $catch ); ?></p><?php endif; ?>
+				<?php if ( $price ) : ?><p class="product-card__price"><?php echo esc_html( $price ); ?></p><?php endif; ?>
+				<span class="product-card__more">商品詳細 <?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?></span>
+			</div>
+		</a>
+	</article>
+	<?php
+}
+
+/**
+ * Product category card (top page / archive).
+ *
+ * @param WP_Term $term Term.
+ */
+function wanko_product_category_card( $term ) {
+	$image = wanko_product_category_image( $term );
+	?>
+	<a class="cat-card" href="<?php echo esc_url( get_term_link( $term ) ); ?>">
+		<div class="cat-card__media">
+			<?php if ( $image ) : ?>
+				<img src="<?php echo esc_url( $image ); ?>" alt="" loading="lazy">
+			<?php else : ?>
+				<div class="thumb-placeholder"><?php echo wanko_icon( 'paw' ); // phpcs:ignore ?></div>
+			<?php endif; ?>
+		</div>
+		<div class="cat-card__body">
+			<span class="cat-card__label"><?php echo esc_html( $term->name ); ?>を探す</span>
+			<?php if ( $term->description ) : ?><span class="cat-card__desc"><?php echo esc_html( $term->description ); ?></span><?php endif; ?>
+			<?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?>
+		</div>
+	</a>
+	<?php
+}
+
+/**
+ * Related column posts (same category, fallback to latest).
+ *
+ * @param int $post_id Post ID.
+ * @param int $count   Number of posts.
+ * @return WP_Query
+ */
+function wanko_related_columns( $post_id, $count = 3 ) {
+	$args  = array(
+		'post_type'      => 'column',
+		'posts_per_page' => $count,
+		'post__not_in'   => array( $post_id ),
+		'no_found_rows'  => true,
+	);
+	$terms = get_the_terms( $post_id, 'column_category' );
+	if ( $terms && ! is_wp_error( $terms ) ) {
+		$args['tax_query'] = array( array( 'taxonomy' => 'column_category', 'field' => 'term_id', 'terms' => wp_list_pluck( $terms, 'term_id' ) ) ); // phpcs:ignore WordPress.DB.SlowDBQuery
+	}
+	$q = new WP_Query( $args );
+	if ( ! $q->have_posts() && isset( $args['tax_query'] ) ) {
+		unset( $args['tax_query'] );
+		$q = new WP_Query( $args );
+	}
+	return $q;
+}
+
+/**
+ * Split multiline text into an array of trimmed non-empty lines.
+ *
+ * @param string $text Text.
+ * @return array
+ */
+function wanko_lines_to_array( $text ) {
+	return array_values( array_filter( array_map( 'trim', preg_split( '/\r\n|\r|\n/', (string) $text ) ) ) );
 }
 
 /**
@@ -236,6 +338,11 @@ function wanko_post_meta() {
 	echo '<time class="post-meta__date" datetime="' . esc_attr( get_the_date( 'c' ) ) . '">' . esc_html( get_the_date( 'Y.m.d' ) ) . '</time>';
 	if ( 'column' === get_post_type() ) {
 		$terms = get_the_terms( get_the_ID(), 'column_category' );
+		if ( $terms && ! is_wp_error( $terms ) ) {
+			echo '<span class="post-meta__cat">' . esc_html( $terms[0]->name ) . '</span>';
+		}
+	} elseif ( 'products' === get_post_type() ) {
+		$terms = get_the_terms( get_the_ID(), 'product_category' );
 		if ( $terms && ! is_wp_error( $terms ) ) {
 			echo '<span class="post-meta__cat">' . esc_html( $terms[0]->name ) . '</span>';
 		}
@@ -268,14 +375,16 @@ function wanko_the_thumbnail( $size = 'wanko-card' ) {
  */
 function wanko_nav_fallback( $args ) {
 	$items = array(
-		'企業情報'       => wanko_page_url( 'company' ),
-		'事業内容'       => wanko_page_url( 'business' ),
-		'お知らせ'       => wanko_news_url(),
-		'コラム'        => get_post_type_archive_link( 'column' ),
-		'採用情報'       => wanko_page_url( 'recruit' ),
-		'お問い合わせ'     => wanko_page_url( 'contact' ),
+		'商品紹介'     => get_post_type_archive_link( 'products' ),
+		'私たちについて'  => wanko_page_url( 'about' ),
+		'会社概要'     => wanko_page_url( 'company' ),
+		'お知らせ'     => wanko_news_url(),
+		'コラム'      => get_post_type_archive_link( 'column' ),
+		'お問い合わせ'   => wanko_page_url( 'contact' ),
 	);
 	if ( 'footer' === $args['theme_location'] ) {
+		$items['事業内容']       = wanko_page_url( 'business' );
+		$items['採用情報']       = wanko_page_url( 'recruit' );
 		$items['プライバシーポリシー'] = wanko_page_url( 'privacy' );
 		$items['サイトマップ']      = wanko_page_url( 'sitemap' );
 	}
