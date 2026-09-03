@@ -22,14 +22,7 @@ require __DIR__ . '/stubs.php';
 require $theme . '/functions.php';
 
 $mods = array(
-	'wanko_company_ceo'     => '代表社員　山田 太郎',
-	'wanko_company_founded' => '2020年4月',
-	'wanko_company_address' => "〒000-0000\n東京都○○区○○ 1-2-3",
-	'wanko_company_tel'     => '03-0000-0000',
-	'wanko_company_email'   => 'info@example.com',
-	'wanko_company_hours'   => '平日 9:00〜18:00',
-	'wanko_shop_cat_url'    => 'https://example.com/nyan',
-	'wanko_movie_url'       => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+	'wanko_movie_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
 );
 
 $views = array(

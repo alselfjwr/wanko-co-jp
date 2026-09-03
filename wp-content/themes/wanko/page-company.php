@@ -48,6 +48,7 @@ wanko_breadcrumb( array( array( 'label' => '企業情報' ) ) );
 			'資本金'   => 'company_capital',
 			'所在地'   => 'company_address',
 			'電話番号'  => 'company_tel',
+			'FAX'   => 'company_fax',
 			'メール'   => 'company_email',
 			'営業時間'  => 'company_hours',
 			'事業内容'  => 'company_business',

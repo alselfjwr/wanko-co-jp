@@ -62,9 +62,14 @@ docker run --rm -p 8080:80 \
 
 （DBコンテナは別途用意。`docker compose` を使う場合は `wordpress` と `mariadb` を組み合わせてください。）
 
+## 素材について
+
+- `assets/img/logo.svg` と `assets/img/photo-*.jpg` は現行サイト（wanko.co.jp）から引き継いだ素材です。写真のライセンス（ストック素材の場合は新サイトでの利用可否）は公開前に確認してください。
+- にゃんにゃんデリバリーフーズは BASE（https://wanwanwanko.official.ec/）と Shopify（https://nyan-nyan-delivery.myshopify.com/）の2店舗があり、初期値は Shopify 側です。カスタマイザーから変更できます。
+
 ## 開発メモ
 
 - 文言は `inc/customizer.php` の `wanko_defaults()` に初期値をまとめています。
 - スタイルは `assets/css/main.css`、動作は `assets/js/main.js`（依存ライブラリなし）。
-- カラー：オレンジ `#e8843c`（いぬ）／ティール `#3f9b96`（ねこ）／イエロー `#f6c344`（総合）。
+- カラー：ロゴの濃紺 `#0a3190`（基調・いぬ）／水色 `#2ea8e1`（ねこ）／イエロー `#f6c344`（総合）。
 - フォント：Noto Sans JP（本文）＋ Zen Maru Gothic（見出し）を Google Fonts から読み込み。

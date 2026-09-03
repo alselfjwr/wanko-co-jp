@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
   <defs>
     <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#fff8ef"/>
-      <stop offset="1" stop-color="#fbeedd"/>
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#f3f6fb"/>
     </linearGradient>
     <pattern id="paws" width="160" height="160" patternUnits="userSpaceOnUse">
-      <g fill="#e8843c" fill-opacity="0.08">
+      <g fill="#0a3190" fill-opacity="0.08">
         <g transform="translate(30 30) scale(1.6)"><circle cx="5.5" cy="10" r="2.3"/><circle cx="9.5" cy="5.5" r="2.4"/><circle cx="14.5" cy="5.5" r="2.4"/><circle cx="18.5" cy="10" r="2.3"/><path d="M12 9.5c-3.4 0-6.6 3.4-6.6 6.4 0 1.9 1.3 3.1 3 3.1 1.2 0 2.2-.7 3.6-.7s2.4.7 3.6.7c1.7 0 3-1.2 3-3.1 0-3-3.2-6.4-6.6-6.4z"/></g>
         <g transform="translate(100 100) rotate(-20) scale(1.3)"><circle cx="5.5" cy="10" r="2.3"/><circle cx="9.5" cy="5.5" r="2.4"/><circle cx="14.5" cy="5.5" r="2.4"/><circle cx="18.5" cy="10" r="2.3"/><path d="M12 9.5c-3.4 0-6.6 3.4-6.6 6.4 0 1.9 1.3 3.1 3 3.1 1.2 0 2.2-.7 3.6-.7s2.4.7 3.6.7c1.7 0 3-1.2 3-3.1 0-3-3.2-6.4-6.6-6.4z"/></g>
       </g>
@@ -14,13 +14,13 @@
   <rect width="1600" height="1000" fill="url(#sky)"/>
   <rect width="1600" height="1000" fill="url(#paws)"/>
   <!-- soft blobs -->
-  <circle cx="1250" cy="380" r="330" fill="#fdebdc"/>
-  <circle cx="1420" cy="760" r="220" fill="#dff1ef"/>
+  <circle cx="1250" cy="380" r="330" fill="#e4ebf9"/>
+  <circle cx="1420" cy="760" r="220" fill="#dff3fb"/>
   <circle cx="1030" cy="820" r="150" fill="#fdf3d3"/>
   <!-- dog -->
   <g transform="translate(1080 300) scale(9)">
-    <g fill="none" stroke="#c96a26" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M7 7.5c-2.5 0-4.5 2-4.5 5.5s1 5 3 5.5c.4-3 1.2-5 2.5-6.5M17 7.5c2.5 0 4.5 2 4.5 5.5s-1 5-3 5.5c-.4-3-1.2-5-2.5-6.5" fill="#f2b98c"/>
+    <g fill="none" stroke="#0a3190" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M7 7.5c-2.5 0-4.5 2-4.5 5.5s1 5 3 5.5c.4-3 1.2-5 2.5-6.5M17 7.5c2.5 0 4.5 2 4.5 5.5s-1 5-3 5.5c-.4-3-1.2-5-2.5-6.5" fill="#c9d6f2"/>
       <path d="M8 7.5c1-1.5 2.4-2.5 4-2.5s3 1 4 2.5c1.6 2.3 2 5.5 1 8.5-.8 2.4-2.8 4-5 4s-4.2-1.6-5-4c-1-3-.6-6.2 1-8.5z" fill="#fff"/>
     </g>
     <circle cx="10" cy="12" r=".9" fill="#3b2f2a"/><circle cx="14" cy="12" r=".9" fill="#3b2f2a"/>
@@ -28,11 +28,11 @@
   </g>
   <!-- cat -->
   <g transform="translate(1290 560) scale(7)">
-    <g fill="none" stroke="#3f9b96" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <g fill="none" stroke="#2ea8e1" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
       <path d="M4 9.5 3.5 3.8 8 6.3a9 9 0 0 1 8 0l4.5-2.5L20 9.5c.6 1.2 1 2.6 1 4 0 4.4-4 7.5-9 7.5s-9-3.1-9-7.5c0-1.4.4-2.8 1-4z" fill="#fff"/>
       <path d="M2.5 14.5h4M17.5 14.5h4M3 17l3.6-1M21 17l-3.6-1"/>
     </g>
     <circle cx="9" cy="12.5" r=".9" fill="#3b2f2a"/><circle cx="15" cy="12.5" r=".9" fill="#3b2f2a"/>
-    <path d="M11 15.5h2l-1 1.2z" fill="#e8843c"/>
+    <path d="M11 15.5h2l-1 1.2z" fill="#0a3190"/>
   </g>
 </svg>

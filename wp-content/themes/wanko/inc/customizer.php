@@ -15,43 +15,44 @@ defined( 'ABSPATH' ) || exit;
  * @return array
  */
 function wanko_defaults() {
+	$img = get_template_directory_uri() . '/assets/img/';
 	return array(
 		// メインビジュアル.
 		'hero_catch'       => "わんちゃんにも、ねこちゃんにも。\n「おいしい」と「安心」を毎日に。",
-		'hero_lead'        => '合同会社わんわんわんこは、ペット関連用品の卸販売と、こだわりのペットフードのお届けを通じて、ペットと飼い主さまの毎日を支えます。',
-		'hero_image'       => '',
+		'hero_lead'        => '合同会社わんわんわんこは、ペット用品・ペットおやつの卸売・販売と、こだわりのペットフードのお届けを通じて、飼い主さまとペット双方にとって価値のあるサービスを提供しています。',
+		'hero_image'       => $img . 'photo-hero.jpg',
 		'hero_btn_label'   => '事業内容を見る',
 		'hero_btn_url'     => '/business/',
 
 		// こだわりのペットフード（ECサイトバナー）.
 		'shop_cat_name'    => 'にゃんにゃんデリバリーフーズ',
-		'shop_cat_desc'    => 'ねこちゃん専用のこだわりフードをご自宅へお届け。',
-		'shop_cat_url'     => '',
+		'shop_cat_desc'    => '猫の「食べる」をもっとラクに。猫の状態やライフステージに合わせたフードを定期的にお届けする、カスタマイズ可能なキャットフードの定期便です。',
+		'shop_cat_url'     => 'https://nyan-nyan-delivery.myshopify.com/',
 		'shop_cat_image'   => '',
 		'shop_dog_name'    => 'わんわんデリバリーフーズ',
-		'shop_dog_desc'    => 'わんちゃんの健康を考えたフードをご自宅へお届け。',
+		'shop_dog_desc'    => 'わんちゃんの健康を考えたフードを、ご自宅へ定期的にお届けするサービスです。',
 		'shop_dog_url'     => '',
-		'shop_dog_image'   => '',
+		'shop_dog_image'   => $img . 'photo-dog-food.jpg',
 		'shop_all_name'    => 'ペット総合ショップ',
 		'shop_all_desc'    => 'フードから日用品まで、ペットとの暮らしをまるごとサポート。',
 		'shop_all_url'     => '',
 		'shop_all_image'   => '',
 
 		// 私たちのお約束.
-		'promise_image'    => '',
-		'promise_catch'    => '「自分のペットに与えたいものだけを。」',
-		'promise_lead'     => '私たちは、ペットも飼い主さまも「家族」だと考えています。だからこそ、商品選びからお届けまで、妥協しません。',
-		'promise_1_title'  => '安心・安全な商品だけを',
-		'promise_1_body'   => '取り扱う商品は、私たち自身が自分のペットに与えたいと思えるものだけ。原材料・製造背景を確認したうえでお届けします。',
-		'promise_2_title'  => '飼い主さまの声に寄り添う',
-		'promise_2_body'   => '小さなご相談にも丁寧に対応します。お困りごとがあれば、まずはお気軽にお問い合わせください。',
-		'promise_3_title'  => 'パートナーと共に育つ',
-		'promise_3_body'   => 'お取引先さま、スタッフ、そしてペットたち。関わるすべての存在と、長く良い関係を築いていきます。',
+		'promise_image'    => $img . 'photo-dog-grass.jpg',
+		'promise_catch'    => '飼い主さまとペット、双方にとって価値のあるサービスを。',
+		'promise_lead'     => '私たちは、品質と安心を重視し、お客さま満足度の向上に向けて継続的なサービス改善に取り組んでいます。',
+		'promise_1_title'  => '信頼性の高い商品',
+		'promise_1_body'   => '主要メーカーとの取引により、ペットフードから日用品・ケア用品・季節商品まで、信頼できる商品を豊富にご用意しています。',
+		'promise_2_title'  => '安定した供給体制',
+		'promise_2_body'   => '小ロットでのご注文にも対応し、取引規模やニーズに応じた柔軟なご提案と、継続的にご利用いただける供給体制を整えています。',
+		'promise_3_title'  => '品質と安心を最優先に',
+		'promise_3_body'   => 'ペットの健康維持と飼い主さまの利便性の両立を目指し、安定した品質のサービスを継続的に提供します。',
 
 		// ごあいさつ.
 		'greeting_title'   => 'ペットと人が、もっと幸せに暮らせる社会へ。',
-		'greeting_body'    => "合同会社わんわんわんこのウェブサイトをご覧いただき、ありがとうございます。\n\n私たちは、ペット関連用品の卸販売を軸に、ペットフードのデリバリー事業を展開しています。「自分のペットに与えたいものだけを届ける」を合言葉に、商品の選定からお客さまのもとへ届くまで、ひとつひとつ丁寧に向き合っています。\n\nこれからも、ペットと飼い主さまの毎日に寄り添う企業であり続けます。",
-		'greeting_name'    => '合同会社わんわんわんこ　代表',
+		'greeting_body'    => "合同会社わんわんわんこのウェブサイトをご覧いただき、ありがとうございます。\n\n当社は、ペット用品およびペットおやつの卸売・販売を中心に事業を展開しています。信頼性の高い商品と安定した供給体制を通じて、飼い主さまとペット双方にとって価値のあるサービスを提供することが私たちの使命です。\n\n品質と安心を重視し、お客さま満足度の向上に向けて継続的なサービス改善に取り組んでまいります。今後とも、合同会社わんわんわんこをよろしくお願いいたします。",
+		'greeting_name'    => '合同会社わんわんわんこ　代表執行役員　鷲見 翼',
 		'greeting_image'   => '',
 
 		// 会社概要.
@@ -61,17 +62,22 @@ function wanko_defaults() {
 		'company_capital'  => '',
 		'company_address'  => "〒550-0005\n大阪府大阪市西区西本町1丁目2-19 AXIS西本町セントラルビル401",
 		'company_tel'      => '06-7167-9040',
-		'company_email'    => '',
+		'company_fax'      => '06-6710-9175',
+		'company_email'    => 'info2@wanko.co.jp',
 		'company_hours'    => '',
-		'company_business' => "ペット関連用品の卸販売\nペットフードのデリバリー販売（にゃんにゃんデリバリーフーズ／わんわんデリバリーフーズ）\nペット総合ショップの運営（準備中）",
+		'company_business' => "ペット用品・ペットおやつの卸売・販売\nキャットフードの定期便「にゃんにゃんデリバリーフーズ」の運営\nドッグフードの定期便「わんわんデリバリーフーズ」（準備中）\nペット総合ショップの運営（準備中）",
 		'company_map'      => '',
+
+		// 事業内容：卸販売・主要取引メーカー.
+		'wholesale_body'   => "当社は、ペット用品およびペットおやつの卸売・販売を行っています。ペットフードをはじめ、日用品、ケア用品、季節商品など幅広い商品を取り扱っています。\n\n小ロットでのご注文にも対応しており、取引規模やニーズに応じた柔軟なご提案が可能です。安定した供給体制のもと、継続的にご利用いただける環境を整えています。ご相談・お見積りなど、お気軽にお問い合わせください。",
+		'partners_list'    => "㈱アイル\nアイシア㈱\n秋元水産㈱\nイースター㈱\n㈱イトウアンドカンパニーリミテッド\nいなばペットフード㈱\nオリエンタル酵母工業㈱\n㈱グリーンベル\n現代製薬㈱\n近喜商事㈱\nシヤチハタ㈱\n㈱マルカン サンライズ\n新東北化学工業㈱\n㈱スマック\n㈱スーパーキャット\nデビフペット㈱\nドギーマンハヤシ㈱\n日本ペットフード㈱\nネスレ日本㈱ネスレピュリナペットケア\nハイペット㈱\n常陸化工㈱\n日本ヒルズ・コルゲート㈱\nペパーレット㈱\nペットライン㈱\n㈱ペティオ\nマースジャパンリミテッド\n㈱マルカン\n㈲ヤマダシステム\nユニ・チャーム㈱\nライオンペット㈱",
 
 		// 採用情報.
 		'recruit_lead'     => '「ペットが好き」その気持ちを、仕事にしませんか。合同会社わんわんわんこでは、一緒に事業を育ててくれる仲間を募集しています。',
 		'recruit_body'     => '',
 
 		// お問い合わせ.
-		'contact_lead'     => '商品のお取り扱い、法人さまのお取引、採用に関するご質問など、お気軽にお問い合わせください。',
+		'contact_lead'     => 'ご不明な点やご質問がございましたら、お気軽にお問い合わせください。商品のお取り扱い、法人さまのお取引、採用に関するご相談も承ります。',
 		'contact_shortcode' => '',
 
 		// ムービー（任意）.
@@ -119,6 +125,7 @@ function wanko_customize_register( $wp_customize ) {
 		'promise'  => '私たちのお約束',
 		'greeting' => '企業情報：ごあいさつ',
 		'company'  => '企業情報：会社概要',
+		'business' => '事業内容：卸販売・主要取引メーカー',
 		'recruit'  => '採用情報',
 		'movie'    => 'トップ：ムービー（任意）',
 		'contact'  => 'お問い合わせ',
@@ -179,10 +186,14 @@ function wanko_customize_register( $wp_customize ) {
 		'company_capital'   => array( 'company', '資本金', 'text' ),
 		'company_address'   => array( 'company', '所在地（改行可）', 'textarea' ),
 		'company_tel'       => array( 'company', '電話番号', 'text' ),
+		'company_fax'       => array( 'company', 'FAX', 'text' ),
 		'company_email'     => array( 'company', 'メールアドレス', 'email' ),
 		'company_hours'     => array( 'company', '営業時間', 'text' ),
 		'company_business'  => array( 'company', '事業内容（1行1項目）', 'textarea' ),
 		'company_map'       => array( 'company', 'Googleマップ埋め込み用 src URL（任意）', 'url' ),
+
+		'wholesale_body'    => array( 'business', '卸販売の説明文（空行で段落分け）', 'textarea' ),
+		'partners_list'     => array( 'business', '主要取引メーカー（1行1社）', 'textarea' ),
 
 		'recruit_lead'      => array( 'recruit', 'リード文', 'textarea' ),
 		'recruit_body'      => array( 'recruit', '補足文（募集要項は固定ページ本文に記載）', 'textarea' ),

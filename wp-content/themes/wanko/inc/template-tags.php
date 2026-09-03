@@ -41,10 +41,10 @@ function wanko_the_logo() {
 		return;
 	}
 	printf(
-		'<a class="site-logo site-logo--text" href="%1$s" rel="home"><span class="site-logo__mark" aria-hidden="true">%3$s</span><span class="site-logo__name">%2$s</span></a>',
+		'<a class="site-logo site-logo--image" href="%1$s" rel="home"><img src="%3$s" alt="%2$s" width="167" height="72"></a>',
 		esc_url( home_url( '/' ) ),
-		esc_html( get_bloginfo( 'name' ) ),
-		wanko_icon( 'paw' ) // phpcs:ignore WordPress.Security.EscapeOutput
+		esc_attr( get_bloginfo( 'name' ) ),
+		esc_url( WANKO_URI . '/assets/img/logo.svg' )
 	);
 }
 
@@ -213,7 +213,8 @@ function wanko_sitemap_tree() {
 			'label'    => '事業内容',
 			'url'      => wanko_page_url( 'business' ),
 			'children' => array(
-				array( 'label' => 'ペット関連用品の卸販売', 'url' => wanko_page_url( 'business' ) . '#wholesale' ),
+				array( 'label' => 'ペット用品・ペットおやつの卸売・販売', 'url' => wanko_page_url( 'business' ) . '#wholesale' ),
+				array( 'label' => '主要取引メーカー', 'url' => wanko_page_url( 'business' ) . '#partners' ),
 				array( 'label' => wanko_get( 'shop_cat_name' ), 'url' => wanko_page_url( 'business' ) . '#shops' ),
 				array( 'label' => wanko_get( 'shop_dog_name' ), 'url' => wanko_page_url( 'business' ) . '#shops' ),
 				array( 'label' => wanko_get( 'shop_all_name' ), 'url' => wanko_page_url( 'business' ) . '#shops' ),
