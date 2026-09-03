@@ -548,7 +548,7 @@ a.shop-card:hover .shop-card__media img { transform: scale(1.04); }
 .toc__list { counter-reset: toc; display: grid; gap: 6px; }
 .toc__list li { counter-increment: toc; padding-left: 28px; position: relative; font-size: 15px; }
 .toc__list li::before { content: counter(toc, decimal-leading-zero); position: absolute; left: 0; color: var(--c-accent); font-weight: 700; font-family: var(--f-head); }
-.toc__list li.is-sub { padding-left: 44px; font-size: 14px; }
+.toc__list li.is-sub { padding-left: 44px; font-size: 14px; counter-increment: none; }
 .toc__list li.is-sub::before { content: "–"; left: 28px; }
 .toc__list a { color: var(--c-text); }
 .toc__list a:hover { color: var(--c-primary); }
