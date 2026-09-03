@@ -1,0 +1,104 @@
+/* Wanko Corporate – front-end behaviour (no dependencies). */
+(function () {
+	'use strict';
+
+	var body = document.body;
+	var toggle = document.querySelector('.menu-toggle');
+	var nav = document.getElementById('global-nav');
+
+	// Mobile navigation.
+	if (toggle && nav) {
+		var closeNav = function () {
+			toggle.setAttribute('aria-expanded', 'false');
+			nav.classList.remove('is-open');
+			body.classList.remove('nav-open');
+		};
+		toggle.addEventListener('click', function () {
+			var open = toggle.getAttribute('aria-expanded') === 'true';
+			toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+			nav.classList.toggle('is-open', !open);
+			body.classList.toggle('nav-open', !open);
+		});
+		nav.addEventListener('click', function (e) {
+			if (e.target.closest('a')) {
+				closeNav();
+			}
+		});
+		document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape') {
+				closeNav();
+			}
+		});
+		window.addEventListener('resize', function () {
+			if (window.innerWidth > 860) {
+				closeNav();
+			}
+		});
+	}
+
+	// Back to top.
+	var toTop = document.querySelector('.to-top');
+	if (toTop) {
+		var onScroll = function () {
+			toTop.classList.toggle('is-visible', window.scrollY > 400);
+		};
+		window.addEventListener('scroll', onScroll, { passive: true });
+		onScroll();
+		toTop.addEventListener('click', function () {
+			window.scrollTo({ top: 0, behavior: 'smooth' });
+		});
+	}
+
+	// Scroll reveal for sections and cards.
+	var targets = document.querySelectorAll('.section-title, .shop-card, .card, .promise-item, .link-tile, .news-item, .feature, .greeting, .spec-table');
+	if ('IntersectionObserver' in window && targets.length) {
+		targets.forEach(function (el, i) {
+			el.setAttribute('data-reveal', '');
+			el.style.transitionDelay = (i % 3) * 80 + 'ms';
+		});
+		var io = new IntersectionObserver(function (entries) {
+			entries.forEach(function (entry) {
+				if (entry.isIntersecting) {
+					entry.target.classList.add('is-in');
+					io.unobserve(entry.target);
+				}
+			});
+		}, { rootMargin: '0px 0px -10% 0px' });
+		targets.forEach(function (el) { io.observe(el); });
+		// Safety net: never leave content hidden (print, very slow devices, etc.).
+		setTimeout(function () {
+			targets.forEach(function (el) { el.classList.add('is-in'); });
+		}, 2000);
+	}
+
+	// Offset in-page anchors for the sticky header.
+	var header = document.getElementById('site-header');
+	var anchorNav = document.querySelector('.anchor-nav');
+	var offset = function () {
+		return (header ? header.offsetHeight : 0) + (anchorNav ? anchorNav.offsetHeight : 0) + 12;
+	};
+	document.querySelectorAll('a[href*="#"]').forEach(function (a) {
+		a.addEventListener('click', function (e) {
+			var url = new URL(a.href, location.href);
+			if (url.pathname !== location.pathname || !url.hash) {
+				return;
+			}
+			var target = document.querySelector(url.hash);
+			if (!target) {
+				return;
+			}
+			e.preventDefault();
+			var top = target.getBoundingClientRect().top + window.scrollY - offset();
+			window.scrollTo({ top: top, behavior: 'smooth' });
+			history.pushState(null, '', url.hash);
+		});
+	});
+	if (location.hash) {
+		var t = document.querySelector(location.hash);
+		if (t) {
+			setTimeout(function () {
+				window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - offset(), behavior: 'auto' });
+			}, 50);
+		}
+	}
+})();

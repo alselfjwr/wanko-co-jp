@@ -1,0 +1,16 @@
+# WordPress core / uploads are not part of this repo (theme only)
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/wp-content/uploads/
+/wp-content/plugins/
+/wp-content/upgrade/
+/wp-content/cache/
+
+# build output
+/dist/
+
+# local
+.DS_Store
+Thumbs.db
+*.log
