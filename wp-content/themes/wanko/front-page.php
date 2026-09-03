@@ -92,6 +92,8 @@ if ( $columns->have_posts() ) :
 	</section>
 <?php endif; ?>
 
+<?php get_template_part( 'template-parts/movie' ); ?>
+
 <?php get_template_part( 'template-parts/promise' ); ?>
 
 <section class="section section--company-links">

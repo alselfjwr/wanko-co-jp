@@ -39,15 +39,28 @@
 		</div>
 
 		<nav class="site-footer__nav" aria-label="フッターナビゲーション">
-			<?php
-			wp_nav_menu( array(
-				'theme_location' => 'footer',
-				'container'      => false,
-				'menu_class'     => 'site-footer__list',
-				'depth'          => 1,
-				'fallback_cb'    => 'wanko_nav_fallback',
-			) );
-			?>
+			<?php foreach ( wanko_sitemap_tree() as $item ) : ?>
+				<?php if ( ! empty( $item['children'] ) ) : ?>
+					<div class="site-footer__group">
+						<a class="site-footer__heading" href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( $item['label'] ); ?></a>
+						<ul class="site-footer__list">
+							<?php foreach ( $item['children'] as $child ) : ?>
+								<li><a href="<?php echo esc_url( $child['url'] ); ?>"><?php echo esc_html( $child['label'] ); ?></a></li>
+							<?php endforeach; ?>
+						</ul>
+					</div>
+				<?php endif; ?>
+			<?php endforeach; ?>
+			<div class="site-footer__group">
+				<span class="site-footer__heading">メニュー</span>
+				<ul class="site-footer__list">
+					<?php foreach ( wanko_sitemap_tree() as $item ) : ?>
+						<?php if ( empty( $item['children'] ) ) : ?>
+							<li><a href="<?php echo esc_url( $item['url'] ); ?>"><?php echo esc_html( $item['label'] ); ?></a></li>
+						<?php endif; ?>
+					<?php endforeach; ?>
+				</ul>
+			</div>
 		</nav>
 	</div>
 	<div class="site-footer__bottom">

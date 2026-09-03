@@ -23,6 +23,7 @@ function wanko_page_definitions() {
 		'recruit'  => array( '採用情報', 'page-recruit.php', wanko_default_recruit_content() ),
 		'contact'  => array( 'お問い合わせ', 'page-contact.php', '' ),
 		'privacy'  => array( 'プライバシーポリシー', 'page-privacy.php', wanko_default_privacy_content() ),
+		'sitemap'  => array( 'サイトマップ', 'page-sitemap.php', '' ),
 	);
 }
 
@@ -88,6 +89,7 @@ function wanko_activate() {
 		array( 'page' => 'recruit' ),
 		array( 'page' => 'contact' ),
 		array( 'page' => 'privacy' ),
+		array( 'page' => 'sitemap' ),
 	), $ids );
 
 	wanko_register_column_cpt();

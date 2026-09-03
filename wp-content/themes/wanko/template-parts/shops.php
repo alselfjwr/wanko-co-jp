@@ -1,6 +1,6 @@
 <?php
 /**
- * こだわりのペットフード (EC banner) section.
+ * こだわりのペットフード (EC banner) section – dog / cat photo cards + general shop banner.
  *
  * @package Wanko
  */
@@ -11,10 +11,10 @@
 		<p class="section-lead">わんちゃん・ねこちゃんそれぞれに合わせたフードを、専門のオンラインショップからご自宅へお届けします。</p>
 		<div class="shop-grid">
 			<?php
-			wanko_shop_card( 'cat', 'cat' );
 			wanko_shop_card( 'dog', 'dog' );
-			wanko_shop_card( 'all', 'shop' );
+			wanko_shop_card( 'cat', 'cat' );
 			?>
 		</div>
+		<?php wanko_shop_card( 'all', 'shop', 'banner' ); ?>
 	</div>
 </section>

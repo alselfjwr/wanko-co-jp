@@ -141,29 +141,91 @@ function wanko_news_url() {
 }
 
 /**
- * Render an EC shop banner card.
+ * Render an EC shop card (photo card for dog / cat, wide banner for the general shop).
  *
- * @param string $key  cat|dog|all.
- * @param string $icon Icon name.
+ * @param string $key   cat|dog|all.
+ * @param string $icon  Icon name.
+ * @param string $style card|banner.
  */
-function wanko_shop_card( $key, $icon ) {
-	$name = wanko_get( 'shop_' . $key . '_name' );
-	$desc = wanko_get( 'shop_' . $key . '_desc' );
-	$url  = wanko_get( 'shop_' . $key . '_url' );
-	$tag  = $url ? 'a' : 'div';
-	$attr = $url ? ' href="' . esc_url( $url ) . '" target="_blank" rel="noopener"' : '';
+function wanko_shop_card( $key, $icon, $style = 'card' ) {
+	$name  = wanko_get( 'shop_' . $key . '_name' );
+	$desc  = wanko_get( 'shop_' . $key . '_desc' );
+	$url   = wanko_get( 'shop_' . $key . '_url' );
+	$image = wanko_get( 'shop_' . $key . '_image' );
+	$tag   = $url ? 'a' : 'div';
+	$attr  = $url ? ' href="' . esc_url( $url ) . '" target="_blank" rel="noopener"' : '';
+	$label = 'cat' === $key ? 'For Cats' : ( 'dog' === $key ? 'For Dogs' : 'For All Pets' );
 	?>
-	<<?php echo $tag; // phpcs:ignore ?> class="shop-card shop-card--<?php echo esc_attr( $key ); ?><?php echo $url ? '' : ' is-soon'; ?>"<?php echo $attr; // phpcs:ignore ?>>
-		<div class="shop-card__icon"><?php echo wanko_icon( $icon ); // phpcs:ignore ?></div>
-		<h3 class="shop-card__name"><?php echo esc_html( $name ); ?></h3>
-		<p class="shop-card__desc"><?php echo esc_html( $desc ); ?></p>
-		<?php if ( $url ) : ?>
-			<span class="shop-card__cta">サイトを見る <?php echo wanko_icon( 'ext' ); // phpcs:ignore ?></span>
-		<?php else : ?>
-			<span class="shop-card__soon">Coming Soon</span>
-		<?php endif; ?>
+	<<?php echo $tag; // phpcs:ignore ?> class="shop-card shop-card--<?php echo esc_attr( $style ); ?> shop-card--<?php echo esc_attr( $key ); ?><?php echo $url ? '' : ' is-soon'; ?>"<?php echo $attr; // phpcs:ignore ?>>
+		<div class="shop-card__media">
+			<?php if ( $image ) : ?>
+				<img src="<?php echo esc_url( $image ); ?>" alt="" loading="lazy">
+			<?php else : ?>
+				<div class="shop-card__placeholder"><?php echo wanko_icon( $icon ); // phpcs:ignore ?></div>
+			<?php endif; ?>
+			<span class="shop-card__label"><?php echo esc_html( $label ); ?></span>
+		</div>
+		<div class="shop-card__body">
+			<div class="shop-card__icon"><?php echo wanko_icon( $icon ); // phpcs:ignore ?></div>
+			<h3 class="shop-card__name"><?php echo esc_html( $name ); ?></h3>
+			<p class="shop-card__desc"><?php echo esc_html( $desc ); ?></p>
+			<?php if ( $url ) : ?>
+				<span class="shop-card__cta btn btn--ghost">サイトを見る <?php echo wanko_icon( 'ext' ); // phpcs:ignore ?></span>
+			<?php else : ?>
+				<span class="shop-card__soon">Coming Soon</span>
+			<?php endif; ?>
+		</div>
 	</<?php echo $tag; // phpcs:ignore ?>>
 	<?php
+}
+
+/**
+ * Extract a YouTube video id from a URL.
+ *
+ * @param string $url YouTube URL.
+ * @return string
+ */
+function wanko_youtube_id( $url ) {
+	if ( preg_match( '~(?:youtu\.be/|youtube\.com/(?:watch\?v=|embed/|shorts/))([A-Za-z0-9_-]{6,})~', (string) $url, $m ) ) {
+		return $m[1];
+	}
+	return '';
+}
+
+/**
+ * Structured site map used by the sitemap page and the footer.
+ *
+ * @return array
+ */
+function wanko_sitemap_tree() {
+	$company = wanko_page_url( 'company' );
+	return array(
+		array(
+			'label'    => '企業情報',
+			'url'      => $company,
+			'children' => array(
+				array( 'label' => 'ごあいさつ', 'url' => $company . '#greeting' ),
+				array( 'label' => '会社概要', 'url' => $company . '#overview' ),
+				array( 'label' => '私たちのお約束', 'url' => $company . '#promise' ),
+			),
+		),
+		array(
+			'label'    => '事業内容',
+			'url'      => wanko_page_url( 'business' ),
+			'children' => array(
+				array( 'label' => 'ペット関連用品の卸販売', 'url' => wanko_page_url( 'business' ) . '#wholesale' ),
+				array( 'label' => wanko_get( 'shop_cat_name' ), 'url' => wanko_page_url( 'business' ) . '#shops' ),
+				array( 'label' => wanko_get( 'shop_dog_name' ), 'url' => wanko_page_url( 'business' ) . '#shops' ),
+				array( 'label' => wanko_get( 'shop_all_name' ), 'url' => wanko_page_url( 'business' ) . '#shops' ),
+			),
+		),
+		array( 'label' => 'お知らせ', 'url' => wanko_news_url() ),
+		array( 'label' => 'コラム', 'url' => get_post_type_archive_link( 'column' ) ),
+		array( 'label' => '採用情報', 'url' => wanko_page_url( 'recruit' ) ),
+		array( 'label' => 'お問い合わせ', 'url' => wanko_page_url( 'contact' ) ),
+		array( 'label' => 'プライバシーポリシー', 'url' => wanko_page_url( 'privacy' ) ),
+		array( 'label' => 'サイトマップ', 'url' => wanko_page_url( 'sitemap' ) ),
+	);
 }
 
 /**
@@ -214,6 +276,7 @@ function wanko_nav_fallback( $args ) {
 	);
 	if ( 'footer' === $args['theme_location'] ) {
 		$items['プライバシーポリシー'] = wanko_page_url( 'privacy' );
+		$items['サイトマップ']      = wanko_page_url( 'sitemap' );
 	}
 	echo '<ul class="' . esc_attr( $args['menu_class'] ) . '">';
 	foreach ( $items as $label => $url ) {

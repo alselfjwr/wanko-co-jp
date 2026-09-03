@@ -1,14 +1,23 @@
 <?php
 /**
- * 私たちのお約束 section (used on the front page and the company page).
+ * 私たちのお約束 – brand statement band (photo background) + three promises.
  *
  * @package Wanko
  */
+$promise_image = wanko_get( 'promise_image' );
 ?>
 <section class="section section--promise" id="promise">
+	<div class="promise-band<?php echo $promise_image ? ' has-image' : ''; ?>">
+		<?php if ( $promise_image ) : ?>
+			<img class="promise-band__bg" src="<?php echo esc_url( $promise_image ); ?>" alt="" loading="lazy">
+		<?php endif; ?>
+		<div class="container promise-band__inner">
+			<?php wanko_section_title( 'Our Promise', '私たちのお約束' ); ?>
+			<p class="promise-band__catch"><?php echo esc_html( wanko_get( 'promise_catch' ) ); ?></p>
+			<p class="promise-band__lead"><?php wanko_the_lines( 'promise_lead' ); ?></p>
+		</div>
+	</div>
 	<div class="container">
-		<?php wanko_section_title( 'Our Promise', '私たちのお約束' ); ?>
-		<p class="section-lead"><?php wanko_the_lines( 'promise_lead' ); ?></p>
 		<ol class="promise-list">
 			<?php for ( $i = 1; $i <= 3; $i++ ) : ?>
 				<li class="promise-item">

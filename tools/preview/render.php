@@ -29,6 +29,7 @@ $mods = array(
 	'wanko_company_email'   => 'info@example.com',
 	'wanko_company_hours'   => '平日 9:00〜18:00',
 	'wanko_shop_cat_url'    => 'https://example.com/nyan',
+	'wanko_movie_url'       => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
 );
 
 $views = array(
@@ -41,6 +42,7 @@ $views = array(
 	'recruit'  => array( 'view' => 'page',    'template' => 'recruit', 'title' => '採用情報',         'file' => 'page-recruit.php' ),
 	'contact'  => array( 'view' => 'page',    'template' => 'contact', 'title' => 'お問い合わせ',       'file' => 'page-contact.php' ),
 	'privacy'  => array( 'view' => 'page',    'template' => 'privacy', 'title' => 'プライバシーポリシー', 'file' => 'page-privacy.php' ),
+	'sitemap'  => array( 'view' => 'page',    'template' => 'sitemap', 'title' => 'サイトマップ',       'file' => 'page-sitemap.php' ),
 	'404'      => array( 'view' => '404',     'template' => '',        'title' => '404',            'file' => '404.php' ),
 );
 

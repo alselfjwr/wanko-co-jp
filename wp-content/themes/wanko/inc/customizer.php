@@ -27,14 +27,19 @@ function wanko_defaults() {
 		'shop_cat_name'    => 'にゃんにゃんデリバリーフーズ',
 		'shop_cat_desc'    => 'ねこちゃん専用のこだわりフードをご自宅へお届け。',
 		'shop_cat_url'     => '',
+		'shop_cat_image'   => '',
 		'shop_dog_name'    => 'わんわんデリバリーフーズ',
 		'shop_dog_desc'    => 'わんちゃんの健康を考えたフードをご自宅へお届け。',
 		'shop_dog_url'     => '',
+		'shop_dog_image'   => '',
 		'shop_all_name'    => 'ペット総合ショップ',
 		'shop_all_desc'    => 'フードから日用品まで、ペットとの暮らしをまるごとサポート。',
 		'shop_all_url'     => '',
+		'shop_all_image'   => '',
 
 		// 私たちのお約束.
+		'promise_image'    => '',
+		'promise_catch'    => '「自分のペットに与えたいものだけを。」',
 		'promise_lead'     => '私たちは、ペットも飼い主さまも「家族」だと考えています。だからこそ、商品選びからお届けまで、妥協しません。',
 		'promise_1_title'  => '安心・安全な商品だけを',
 		'promise_1_body'   => '取り扱う商品は、私たち自身が自分のペットに与えたいと思えるものだけ。原材料・製造背景を確認したうえでお届けします。',
@@ -51,11 +56,11 @@ function wanko_defaults() {
 
 		// 会社概要.
 		'company_name'     => '合同会社わんわんわんこ',
-		'company_ceo'      => '',
+		'company_ceo'      => '代表執行役員　鷲見 翼',
 		'company_founded'  => '',
 		'company_capital'  => '',
-		'company_address'  => '',
-		'company_tel'      => '',
+		'company_address'  => "〒550-0005\n大阪府大阪市西区西本町1丁目2-19 AXIS西本町セントラルビル401",
+		'company_tel'      => '06-7167-9040',
 		'company_email'    => '',
 		'company_hours'    => '',
 		'company_business' => "ペット関連用品の卸販売\nペットフードのデリバリー販売（にゃんにゃんデリバリーフーズ／わんわんデリバリーフーズ）\nペット総合ショップの運営（準備中）",
@@ -68,6 +73,11 @@ function wanko_defaults() {
 		// お問い合わせ.
 		'contact_lead'     => '商品のお取り扱い、法人さまのお取引、採用に関するご質問など、お気軽にお問い合わせください。',
 		'contact_shortcode' => '',
+
+		// ムービー（任意）.
+		'movie_url'        => '',
+		'movie_title'      => 'わんわんわんこムービー',
+		'movie_lead'       => '',
 
 		// フッター / SNS.
 		'sns_instagram'    => '',
@@ -110,6 +120,7 @@ function wanko_customize_register( $wp_customize ) {
 		'greeting' => '企業情報：ごあいさつ',
 		'company'  => '企業情報：会社概要',
 		'recruit'  => '採用情報',
+		'movie'    => 'トップ：ムービー（任意）',
 		'contact'  => 'お問い合わせ',
 		'footer'   => 'フッター・SNS',
 	);
@@ -137,13 +148,18 @@ function wanko_customize_register( $wp_customize ) {
 		'shop_cat_name'     => array( 'shop', '【ねこ】サービス名', 'text' ),
 		'shop_cat_desc'     => array( 'shop', '【ねこ】説明文', 'textarea' ),
 		'shop_cat_url'      => array( 'shop', '【ねこ】ECサイトURL（空欄で Coming Soon 表示）', 'url' ),
+		'shop_cat_image'    => array( 'shop', '【ねこ】写真（推奨 900×600px）', 'image' ),
 		'shop_dog_name'     => array( 'shop', '【いぬ】サービス名', 'text' ),
 		'shop_dog_desc'     => array( 'shop', '【いぬ】説明文', 'textarea' ),
 		'shop_dog_url'      => array( 'shop', '【いぬ】ECサイトURL（空欄で Coming Soon 表示）', 'url' ),
+		'shop_dog_image'    => array( 'shop', '【いぬ】写真（推奨 900×600px）', 'image' ),
 		'shop_all_name'     => array( 'shop', '【総合】サービス名', 'text' ),
 		'shop_all_desc'     => array( 'shop', '【総合】説明文', 'textarea' ),
 		'shop_all_url'      => array( 'shop', '【総合】ECサイトURL（空欄で Coming Soon 表示）', 'url' ),
+		'shop_all_image'    => array( 'shop', '【総合】写真（推奨 1600×600px）', 'image' ),
 
+		'promise_image'     => array( 'promise', '背景写真（推奨 1600×900px）', 'image' ),
+		'promise_catch'     => array( 'promise', 'キャッチ（写真の上に大きく表示）', 'text' ),
 		'promise_lead'      => array( 'promise', 'リード文', 'textarea' ),
 		'promise_1_title'   => array( 'promise', 'お約束1：見出し', 'text' ),
 		'promise_1_body'    => array( 'promise', 'お約束1：本文', 'textarea' ),
@@ -170,6 +186,10 @@ function wanko_customize_register( $wp_customize ) {
 
 		'recruit_lead'      => array( 'recruit', 'リード文', 'textarea' ),
 		'recruit_body'      => array( 'recruit', '補足文（募集要項は固定ページ本文に記載）', 'textarea' ),
+
+		'movie_url'         => array( 'movie', 'YouTube動画URL（設定するとトップに表示）', 'url' ),
+		'movie_title'       => array( 'movie', '見出し', 'text' ),
+		'movie_lead'        => array( 'movie', 'リード文', 'textarea' ),
 
 		'contact_lead'      => array( 'contact', 'リード文', 'textarea' ),
 		'contact_shortcode' => array( 'contact', 'フォームのショートコード（例：[contact-form-7 id="123" title="お問い合わせ"]）', 'text' ),
