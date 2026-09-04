@@ -316,8 +316,8 @@ function wanko_nav_fallback( $args ) {
 	}
 	echo '<ul class="' . esc_attr( $args['menu_class'] ) . '">';
 	foreach ( $items as $label => $url ) {
-		$seg = explode( '/', trim( (string) wp_parse_url( $url, PHP_URL_PATH ), '/' ) )[0];
-		$en  = wanko_en_label( $seg );
+		$segs = explode( '/', trim( (string) wp_parse_url( $url, PHP_URL_PATH ), '/' ) );
+		$en   = wanko_en_label( end( $segs ) );
 		printf( '<li class="menu-item"><a href="%s">%s<span class="nav-ja">%s</span></a></li>', esc_url( $url ), $en ? '<span class="nav-en">' . esc_html( $en ) . '</span>' : '', esc_html( $label ) );
 	}
 	echo '</ul>';
@@ -364,8 +364,8 @@ class Wanko_Nav_Walker extends Walker_Nav_Menu {
 		$en      = trim( (string) $item->description );
 		if ( '' === $en ) {
 			$path = trim( (string) wp_parse_url( $item->url, PHP_URL_PATH ), '/' );
-			$seg  = $path ? explode( '/', $path )[0] : '';
-			$en   = wanko_en_label( $seg );
+			$segs = $path ? explode( '/', $path ) : array();
+			$en   = $segs ? wanko_en_label( end( $segs ) ) : '';
 		}
 		$output .= '<li class="' . esc_attr( implode( ' ', $classes ) ) . '">';
 		$output .= '<a href="' . esc_url( $item->url ) . '"' . ( ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) . '"' : '' ) . '>';

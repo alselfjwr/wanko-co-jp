@@ -1,0 +1,59 @@
+# お名前.com レンタルサーバーへテーマを自動デプロイ
+#
+# 使い方（初回のみ）:
+#   GitHub リポジトリ → Settings → Secrets and variables → Actions → New repository secret で
+#   次の3つ（＋任意1つ）を登録してください。値はここにもチャットにも書かないでください。
+#     FTP_HOST        … お名前.com のFTPサーバー名（コントロールパネル「FTP・SSHアカウント」に表示）
+#     FTP_USER        … FTPアカウント名
+#     FTP_PASSWORD    … FTPパスワード
+#     FTP_REMOTE_PATH … （任意）テーマの配置先。未設定なら /wanko.co.jp/wp-content/themes/wanko/
+#
+# 以降は、このブランチに push されるたびに wp-content/themes/wanko/ が自動で同期されます。
+# 手動で実行したい場合は Actions タブ → 「Deploy theme」 → Run workflow。
+name: Deploy theme
+
+on:
+  push:
+    branches: [claude/wanwan-wordpress-site-7a5vbj, main]
+    paths: ['wp-content/themes/wanko/**', '.github/workflows/deploy.yml']
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-theme
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: PHP syntax check
+        run: |
+          for f in $(find wp-content/themes/wanko -name '*.php'); do php -l "$f" > /dev/null || exit 1; done
+          echo "syntax ok"
+
+      - name: Check secrets
+        id: check
+        run: |
+          if [ -z "${{ secrets.FTP_HOST }}" ] || [ -z "${{ secrets.FTP_USER }}" ] || [ -z "${{ secrets.FTP_PASSWORD }}" ]; then
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::FTP secrets are not configured yet. Skipping deploy."
+          else
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy via FTPS
+        if: steps.check.outputs.configured == 'true'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: wp-content/themes/wanko/
+          server-dir: ${{ secrets.FTP_REMOTE_PATH || '/wanko.co.jp/wp-content/themes/wanko/' }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/.DS_Store

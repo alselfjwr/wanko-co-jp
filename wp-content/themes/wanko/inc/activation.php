@@ -70,9 +70,22 @@ function wanko_activate() {
 		update_option( 'wp_page_for_privacy_policy', $ids['privacy'] );
 	}
 
-	// Pretty permalinks (お知らせ: /news/slug/).
-	if ( ! get_option( 'permalink_structure' ) ) {
+	// Pretty permalinks (お知らせ: /news/slug/). WordPress の初期値のままなら置き換える.
+	$structure = (string) get_option( 'permalink_structure' );
+	if ( '' === $structure || '/%year%/%monthnum%/%day%/%postname%/' === $structure ) {
 		update_option( 'permalink_structure', '/news/%postname%/' );
+	}
+
+	// WordPress 初期の「サンプルページ」「プライバシーポリシー（下書き）」を片付ける.
+	foreach ( array( 'sample-page', 'privacy-policy' ) as $default_slug ) {
+		$default_page = get_page_by_path( $default_slug, OBJECT, 'page' );
+		if ( $default_page && ( 'draft' === $default_page->post_status || 'sample-page' === $default_slug ) ) {
+			wp_trash_post( $default_page->ID );
+		}
+	}
+	$hello = get_page_by_path( 'hello-world', OBJECT, 'post' );
+	if ( $hello ) {
+		wp_trash_post( $hello->ID );
 	}
 
 	wanko_build_menu( 'primary', 'グローバルナビ', array(
