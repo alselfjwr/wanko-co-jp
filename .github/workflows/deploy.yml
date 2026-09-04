@@ -6,7 +6,8 @@
 #     FTP_HOST        … お名前.com のFTPサーバー名（コントロールパネル「FTP・SSHアカウント」に表示）
 #     FTP_USER        … FTPアカウント名
 #     FTP_PASSWORD    … FTPパスワード
-#     FTP_REMOTE_PATH … （任意）テーマの配置先。未設定なら /wanko.co.jp/wp-content/themes/wanko/
+#     FTP_REMOTE_PATH … （任意）テーマの配置先。未設定なら /public_html/wp/wp-content/themes/wanko/
+#                        （WordPress を public_html/wp/ に設置する前提。別の場所なら登録してください）
 #
 # 以降は、このブランチに push されるたびに wp-content/themes/wanko/ が自動で同期されます。
 # 手動で実行したい場合は Actions タブ → 「Deploy theme」 → Run workflow。
@@ -52,7 +53,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           protocol: ftps
           local-dir: wp-content/themes/wanko/
-          server-dir: ${{ secrets.FTP_REMOTE_PATH || '/wanko.co.jp/wp-content/themes/wanko/' }}
+          server-dir: ${{ secrets.FTP_REMOTE_PATH || '/public_html/wp/wp-content/themes/wanko/' }}
           exclude: |
             **/.git*
             **/.git*/**
