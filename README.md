@@ -13,7 +13,7 @@ WordPress本体・プラグイン・アップロード画像はこのリポジ�
 | お知らせ | `/news/` | `home.php` `single.php` | 標準「投稿」を使用 |
 | コラム | `/column/` | `archive.php` `single.php` | カスタム投稿タイプ `column`。カテゴリー・タグ・目次（自動）・関連記事 |
 | 採用情報 | `/recruit/` | `page-recruit.php` | 募集要項は固定ページ本文で編集 |
-| お問い合わせ | `/contact/` | `page-contact.php` | Contact Form 7 のショートコードを設定 |
+| お問い合わせ | `/contact/` | `page-contact.php` | テーマ内蔵フォーム（通知＋自動返信）。Contact Form 7 のショートコードを設定すると置き換え可 |
 | プライバシーポリシー | `/privacy/` | `page-privacy.php` | 初期文面入り |
 | サイトマップ | `/sitemap/` | `page-sitemap.php` | 自動生成 |
 
@@ -35,7 +35,7 @@ WordPress本体・プラグイン・アップロード画像はこのリポジ�
    WordPress管理画面 → 外観 → テーマ → 新規追加 → テーマのアップロード → `wanko.zip` → 有効化。
    有効化と同時に固定ページ・メニューが作成され、トップページが設定されます。
 4. **プラグインを追加**
-   - Contact Form 7（お問い合わせフォーム）
+   - （任意）Contact Form 7：内蔵フォームで足りない場合のみ。メールが届かない場合は WP Mail SMTP を追加
    - SiteGuard WP Plugin（ログイン保護）
    - UpdraftPlus（バックアップ）
    - XML Sitemap & Google News または WordPress標準サイトマップ（`/wp-sitemap.xml`）

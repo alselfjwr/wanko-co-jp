@@ -14,7 +14,8 @@ defined( 'ABSPATH' ) || exit;
  * @return array
  */
 function wanko_contact_types() {
-	return array( '商品について', 'お取引（卸販売）について', '定期便サービスについて', '採用について', 'その他' );
+	$types = wanko_lines_to_array( wanko_get( 'contact_types' ) );
+	return $types ? $types : array( 'その他のお問い合わせ' );
 }
 
 /**
@@ -61,7 +62,7 @@ function wanko_contact_handle() {
 		$result['errors'][] = 'プライバシーポリシーへの同意が必要です。';
 	}
 	if ( ! in_array( $v['type'], wanko_contact_types(), true ) ) {
-		$v['type'] = 'その他';
+		$result['errors'][] = 'お問い合わせ種別を選択してください。';
 	}
 	if ( $result['errors'] ) {
 		$result['status'] = 'error';
@@ -138,7 +139,8 @@ function wanko_contact_form() {
 		<div class="wform__row">
 			<label class="wform__label" for="wanko_type">お問い合わせ種別<span class="req">必須</span></label>
 			<div class="wform__field">
-				<select id="wanko_type" name="wanko_type">
+				<select id="wanko_type" name="wanko_type" required>
+					<option value="" <?php selected( $v['type'], '' ); ?>>選択してください</option>
 					<?php foreach ( wanko_contact_types() as $t ) : ?>
 						<option value="<?php echo esc_attr( $t ); ?>" <?php selected( $v['type'], $t ); ?>><?php echo esc_html( $t ); ?></option>
 					<?php endforeach; ?>

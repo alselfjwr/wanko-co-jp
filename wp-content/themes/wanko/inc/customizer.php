@@ -106,6 +106,7 @@ function wanko_defaults() {
 		// お問い合わせ.
 		'contact_lead'     => 'ご不明な点やご質問がございましたら、お気軽にお問い合わせください。商品のお取り扱い、法人さまのお取引、採用に関するご相談も承ります。',
 		'contact_shortcode' => '',
+		'contact_types'    => "にゃんにゃんデリバリーフーズについて（ご注文・定期便）\nわんわんデリバリーフーズについて\n法人のお取引・卸販売について\n取扱商品について\n採用について\n取材・その他のお問い合わせ",
 
 		// ムービー（任意）.
 		'movie_url'        => '',
@@ -257,7 +258,8 @@ function wanko_customize_register( $wp_customize ) {
 		'movie_lead'        => array( 'movie', 'リード文', 'textarea' ),
 
 		'contact_lead'      => array( 'contact', 'リード文', 'textarea' ),
-		'contact_shortcode' => array( 'contact', 'フォームのショートコード（例：[contact-form-7 id="123" title="お問い合わせ"]）', 'text' ),
+		'contact_types'     => array( 'contact', 'お問い合わせ種別の選択肢（1行1項目）', 'textarea' ),
+		'contact_shortcode' => array( 'contact', 'Contact Form 7 等のショートコード（設定すると内蔵フォームの代わりに表示）', 'text' ),
 
 		'sns_instagram'     => array( 'footer', 'Instagram URL', 'url' ),
 		'sns_x'             => array( 'footer', 'X（旧Twitter）URL', 'url' ),
