@@ -16,3 +16,4 @@ require WANKO_DIR . '/inc/cpt.php';
 require WANKO_DIR . '/inc/customizer.php';
 require WANKO_DIR . '/inc/template-tags.php';
 require WANKO_DIR . '/inc/activation.php';
+require WANKO_DIR . '/inc/contact-form.php';

@@ -8,7 +8,7 @@
 
 get_header();
 the_post();
-wanko_page_hero( 'お問い合わせ', 'Contact' );
+wanko_page_banner( 'お問い合わせ', 'Contact' );
 wanko_breadcrumb( array( array( 'label' => 'お問い合わせ' ) ) );
 $shortcode = wanko_get( 'contact_shortcode' );
 ?>
@@ -34,21 +34,18 @@ $shortcode = wanko_get( 'contact_shortcode' );
 			</div>
 		<?php endif; ?>
 
-		<div class="contact-form">
+		<div class="contact-form" id="form">
 			<h2 class="contact-form__title">お問い合わせフォーム</h2>
 			<?php if ( $shortcode ) : ?>
 				<?php echo do_shortcode( wp_kses_post( $shortcode ) ); ?>
 			<?php elseif ( get_the_content() ) : ?>
 				<div class="prose"><?php the_content(); ?></div>
 			<?php else : ?>
-				<p class="notice">フォームは現在準備中です。お急ぎの場合はお電話またはメールにてご連絡ください。</p>
-				<?php if ( current_user_can( 'edit_theme_options' ) ) : ?>
-					<p class="notice notice--admin">【管理者向け】Contact Form 7 などで作成したフォームのショートコードを「外観 &gt; カスタマイズ &gt; サイトコンテンツ &gt; お問い合わせ」に貼り付けると、ここに表示されます。</p>
-				<?php endif; ?>
+				<?php wanko_contact_form(); ?>
 			<?php endif; ?>
 		</div>
 
-		<p class="contact-privacy">ご入力いただいた個人情報は、<a href="<?php echo esc_url( wanko_page_url( 'privacy' ) ); ?>">プライバシーポリシー</a>に基づき適切に取り扱います。</p>
+		<p class="contact-privacy">ご入力いただいた個人情報は、<a href="<?php echo esc_url( wanko_page_url( 'privacy' ) ); ?>">プライバシーポリシー</a>に基づき、お問い合わせへの対応および必要なご連絡のためにのみ利用します。</p>
 	</div>
 </section>
 <?php get_footer(); ?>

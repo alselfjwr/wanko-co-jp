@@ -213,3 +213,11 @@ function wp_get_attachment_image( $id, $size = '', $icon = false, $attr = array(
 }
 class Walker_Nav_Menu {}
 function wp_parse_url( $u, $c = -1 ) { return parse_url( $u, $c ); }
+
+function wp_nonce_field( $a = '', $n = '' ) { echo '<input type="hidden" name="' . esc_attr( $n ) . '" value="preview">'; }
+function wp_verify_nonce() { return false; }
+function wp_parse_args( $a, $d = array() ) { return array_merge( $d, (array) $a ); }
+function selected( $a, $b ) { echo $a === $b ? ' selected' : ''; }
+function checked( $a ) { echo $a ? ' checked' : ''; }
+function esc_textarea( $s ) { return esc_html( $s ); }
+function is_email( $e ) { return (bool) filter_var( $e, FILTER_VALIDATE_EMAIL ); }
