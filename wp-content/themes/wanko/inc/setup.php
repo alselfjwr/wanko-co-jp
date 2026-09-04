@@ -43,7 +43,7 @@ add_action( 'after_setup_theme', 'wanko_setup' );
 function wanko_enqueue_assets() {
 	wp_enqueue_style(
 		'wanko-fonts',
-		'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap',
+		'https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;600&family=Cinzel:wght@400;700&display=swap',
 		array(),
 		null
 	);

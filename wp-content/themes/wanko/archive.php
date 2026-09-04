@@ -29,14 +29,27 @@ wanko_breadcrumb( $crumbs );
 	<?php endif; ?>
 
 	<?php if ( $is_column ) : ?>
-		<?php $terms = get_terms( array( 'taxonomy' => 'column_category', 'hide_empty' => true ) ); ?>
-		<?php if ( $terms && ! is_wp_error( $terms ) ) : ?>
-			<ul class="term-nav">
-				<li><a class="<?php echo is_post_type_archive( 'column' ) ? 'is-active' : ''; ?>" href="<?php echo esc_url( $root_url ); ?>">すべて</a></li>
-				<?php foreach ( $terms as $term ) : ?>
-					<li><a class="<?php echo is_tax( 'column_category', $term->term_id ) ? 'is-active' : ''; ?>" href="<?php echo esc_url( get_term_link( $term ) ); ?>"><?php echo esc_html( $term->name ); ?></a></li>
-				<?php endforeach; ?>
-			</ul>
+		<?php
+		$cats = get_terms( array( 'taxonomy' => 'column_category', 'hide_empty' => true ) );
+		$tags = get_terms( array( 'taxonomy' => 'column_tag', 'hide_empty' => true ) );
+		?>
+		<?php if ( ( $cats && ! is_wp_error( $cats ) ) || ( $tags && ! is_wp_error( $tags ) ) ) : ?>
+			<div class="tag-box">
+				<p class="tag-box__title">タグで絞り込む</p>
+				<ul class="term-nav">
+					<li><a class="<?php echo is_post_type_archive( 'column' ) ? 'is-active' : ''; ?>" href="<?php echo esc_url( $root_url ); ?>">すべて</a></li>
+					<?php if ( $cats && ! is_wp_error( $cats ) ) : ?>
+						<?php foreach ( $cats as $term ) : ?>
+							<li><a class="<?php echo is_tax( 'column_category', $term->term_id ) ? 'is-active' : ''; ?>" href="<?php echo esc_url( get_term_link( $term ) ); ?>"><?php echo esc_html( $term->name ); ?></a></li>
+						<?php endforeach; ?>
+					<?php endif; ?>
+					<?php if ( $tags && ! is_wp_error( $tags ) ) : ?>
+						<?php foreach ( $tags as $term ) : ?>
+							<li><a class="is-tag <?php echo is_tax( 'column_tag', $term->term_id ) ? 'is-active' : ''; ?>" href="<?php echo esc_url( get_term_link( $term ) ); ?>">#<?php echo esc_html( $term->name ); ?></a></li>
+						<?php endforeach; ?>
+					<?php endif; ?>
+				</ul>
+			</div>
 		<?php endif; ?>
 	<?php endif; ?>
 

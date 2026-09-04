@@ -20,11 +20,33 @@ wanko_breadcrumb( $crumbs );
 ?>
 <article class="product">
 	<div class="container section product__top">
-		<div class="product__gallery">
-			<?php if ( has_post_thumbnail() ) : ?>
-				<?php the_post_thumbnail( 'large' ); ?>
-			<?php else : ?>
-				<div class="thumb-placeholder thumb-placeholder--square"><?php echo wanko_icon( 'box' ); // phpcs:ignore ?></div>
+		<?php
+		// Gallery: featured image + other images uploaded to this product (max 5).
+		$gallery = array();
+		if ( has_post_thumbnail() ) {
+			$gallery[] = get_post_thumbnail_id();
+		}
+		foreach ( get_attached_media( 'image', get_the_ID() ) as $att ) {
+			if ( ! in_array( $att->ID, $gallery, true ) ) {
+				$gallery[] = $att->ID;
+			}
+		}
+		$gallery = array_slice( $gallery, 0, 5 );
+		?>
+		<div class="product__gallery" data-gallery>
+			<div class="product__main">
+				<?php if ( $gallery ) : ?>
+					<?php echo wp_get_attachment_image( $gallery[0], 'large', false, array( 'data-gallery-main' => '' ) ); ?>
+				<?php else : ?>
+					<div class="thumb-placeholder thumb-placeholder--square"><?php echo wanko_icon( 'box' ); // phpcs:ignore ?></div>
+				<?php endif; ?>
+			</div>
+			<?php if ( count( $gallery ) > 1 ) : ?>
+				<ul class="product__thumbs">
+					<?php foreach ( $gallery as $i => $att_id ) : ?>
+						<li><button type="button" class="<?php echo 0 === $i ? 'is-active' : ''; ?>" data-full="<?php echo esc_url( wp_get_attachment_image_url( $att_id, 'large' ) ); ?>"><?php echo wp_get_attachment_image( $att_id, 'thumbnail' ); ?></button></li>
+					<?php endforeach; ?>
+				</ul>
 			<?php endif; ?>
 		</div>
 		<div class="product__summary">

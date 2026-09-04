@@ -124,3 +124,20 @@
 	});
 	toc.hidden = false;
 })();
+
+/* Product gallery: swap the main image */
+(function () {
+	'use strict';
+	var g = document.querySelector('[data-gallery]');
+	if (!g) { return; }
+	var main = g.querySelector('[data-gallery-main]');
+	g.querySelectorAll('.product__thumbs button').forEach(function (btn) {
+		btn.addEventListener('click', function () {
+			if (!main) { return; }
+			main.src = btn.getAttribute('data-full');
+			main.removeAttribute('srcset');
+			g.querySelectorAll('.product__thumbs button').forEach(function (b) { b.classList.remove('is-active'); });
+			btn.classList.add('is-active');
+		});
+	});
+})();

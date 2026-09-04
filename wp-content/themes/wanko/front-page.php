@@ -54,7 +54,7 @@ if ( $news->have_posts() ) :
 	</section>
 <?php endif; ?>
 
-<section class="section section--products" id="products">
+<section class="section section--alt section--products" id="products">
 	<div class="container">
 		<?php wanko_section_title( 'Products', '商品紹介' ); ?>
 		<p class="section-lead"><?php wanko_the_lines( 'products_lead' ); ?></p>
@@ -62,10 +62,6 @@ if ( $news->have_posts() ) :
 		<p class="text-center section-more"><a class="btn btn--primary" href="<?php echo esc_url( get_post_type_archive_link( 'products' ) ); ?>">商品一覧を見る<?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?></a></p>
 	</div>
 </section>
-
-<?php get_template_part( 'template-parts/story' ); ?>
-
-<?php get_template_part( 'template-parts/commitment', null, array( 'show_link' => true ) ); ?>
 
 <?php
 $columns = new WP_Query( array( 'post_type' => 'column', 'posts_per_page' => 3, 'no_found_rows' => true ) );
@@ -89,6 +85,8 @@ if ( $columns->have_posts() ) :
 		</div>
 	</section>
 <?php endif; ?>
+
+<?php get_template_part( 'template-parts/commitment', null, array( 'compact' => true ) ); ?>
 
 <?php get_template_part( 'template-parts/movie' ); ?>
 

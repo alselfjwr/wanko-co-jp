@@ -23,7 +23,7 @@ wanko_breadcrumb( array( array( 'label' => '私たちについて' ) ) );
 	</div>
 </section>
 
-<?php get_template_part( 'template-parts/commitment', null, array( 'show_link' => true ) ); ?>
+<?php get_template_part( 'template-parts/commitment' ); ?>
 
 <?php if ( get_the_content() ) : ?>
 	<section class="section"><div class="container"><div class="prose prose--page"><?php the_content(); ?></div></div></section>

@@ -77,7 +77,7 @@ function wanko_icon( $name ) {
  */
 function wanko_section_title( $en, $ja, $align = 'center' ) {
 	printf(
-		'<div class="section-title section-title--%3$s"><span class="section-title__en">%1$s</span><h2 class="section-title__ja">%2$s</h2></div>',
+		'<div class="section-title section-title--%3$s"><h2 class="section-title__ja">%2$s</h2><span class="section-title__en">%1$s</span></div>',
 		esc_html( $en ),
 		esc_html( $ja ),
 		esc_attr( $align )
@@ -92,7 +92,7 @@ function wanko_section_title( $en, $ja, $align = 'center' ) {
  */
 function wanko_page_hero( $ja, $en ) {
 	printf(
-		'<div class="page-hero"><div class="container"><span class="page-hero__en">%2$s</span><h1 class="page-hero__title">%1$s</h1></div></div>',
+		'<div class="page-hero"><div class="container"><h1 class="page-hero__title">%1$s</h1><span class="page-hero__en">%2$s</span></div></div>',
 		esc_html( $ja ),
 		esc_html( $en )
 	);

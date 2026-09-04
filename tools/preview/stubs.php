@@ -60,7 +60,7 @@ function current_user_can() { return true; }
 function is_wp_error( $x ) { return false; }
 function wp_head() {
 	echo '<title>' . esc_html( ctx( 'title' ) ) . ' | 合同会社わんわんわんこ</title>' . "\n";
-	echo '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap">' . "\n";
+	echo '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;600&family=Cinzel:wght@400;700&display=swap">' . "\n";
 	echo '<link rel="stylesheet" href="' . PREVIEW_THEME_URI . '/assets/css/main.css">' . "\n";
 }
 function wp_footer() { echo '<script src="' . PREVIEW_THEME_URI . '/assets/js/main.js"></script>' . "\n"; }
@@ -112,7 +112,7 @@ function get_term_link( $t ) {
 	return home_url( '/' . str_replace( '_', '-', $t->taxonomy ) . '/' . $t->slug . '/' );
 }
 function get_term_meta() { return ''; }
-function wp_get_attachment_image_url() { return ''; }
+function wp_get_attachment_image_url( $id = 0, $size = '' ) { $map = array( 9001 => 'photo-dog-food.jpg', 9002 => 'photo-cat-food.jpg', 9003 => 'photo-nyandeli.jpg' ); return isset( $map[ $id ] ) ? PREVIEW_THEME_URI . '/assets/img/' . $map[ $id ] : ''; }
 function get_the_post_thumbnail_url( $p, $s = '' ) { return is_array( $p ) ? $p['thumb'] : ( is_object( $p ) && isset( $p->thumb ) ? $p->thumb : '' ); }
 function get_the_post_thumbnail( $id, $size = '', $attr = array() ) { $p = preview_find( $id ); return $p && $p['thumb'] ? '<img src="' . esc_url( $p['thumb'] ) . '" alt="">' : ''; }
 function preview_find( $id ) { foreach ( preview_posts() as $p ) { if ( $p['id'] === $id ) { return $p; } } return null; }
@@ -202,4 +202,12 @@ function preview_posts() {
 		array( 'id' => 6, 'type' => 'column', 'title' => 'ねこちゃんの水分不足に注意。ウェットフードの活用法', 'date' => '2026-08-20', 'cat' => '健康', 'excerpt' => 'もともと水をあまり飲まない猫。フード選びで水分補給をサポートするコツをご紹介します。', 'thumb' => '', 'url' => '#', 'content' => '' ),
 		array( 'id' => 7, 'type' => 'column', 'title' => '子犬を迎えたら最初にそろえたい用品リスト', 'date' => '2026-08-05', 'cat' => 'しつけ', 'excerpt' => 'ケージ、トイレ、食器、おもちゃ。初日から必要なものと、あとから買い足せばよいものを整理しました。', 'thumb' => '', 'url' => '#', 'content' => '' ),
 	);
+}
+
+function get_post_thumbnail_id() { return 9001; }
+function get_attached_media( $type, $id ) { return array( (object) array( 'ID' => 9002 ), (object) array( 'ID' => 9003 ) ); }
+function wp_get_attachment_image( $id, $size = '', $icon = false, $attr = array() ) {
+	$map = array( 9001 => 'photo-dog-food.jpg', 9002 => 'photo-cat-food.jpg', 9003 => 'photo-nyandeli.jpg' );
+	$a = ''; foreach ( $attr as $k => $v ) { $a .= ' ' . $k . '="' . esc_attr( $v ) . '"'; }
+	return '<img src="' . PREVIEW_THEME_URI . '/assets/img/' . $map[ $id ] . '" alt=""' . $a . '>';
 }
