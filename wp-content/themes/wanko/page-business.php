@@ -54,4 +54,5 @@ wanko_breadcrumb( array( array( 'label' => '事業内容' ) ) );
 	</section>
 <?php endif; ?>
 
+<section class="section section--tiles"><div class="container"><?php get_template_part( 'template-parts/company-tiles' ); ?></div></section>
 <?php get_footer(); ?>

@@ -753,3 +753,22 @@ a.shop-card:hover .shop-card__media img { transform: scale(1.04); }
 	.tile-grid, .cat-grid { grid-template-columns: 1fr; }
 	.product-grid { grid-template-columns: 1fr; }
 }
+
+/* Shops (EC services) ---------------------------------------------------- */
+.shop-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-bottom: 0; }
+.shop-block { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px; }
+.shop-block .photo-tile { width: 100%; }
+.shop-block__desc { font-size: 13px; margin: 0; text-align: left; }
+.photo-tile__soon { display: inline-block; margin-top: 10px; padding: 3px 14px; border: 1px solid rgba(255, 255, 255, .7); border-radius: 999px; font-family: var(--f-en); font-size: 11px; letter-spacing: .15em; }
+.shop-block.is-soon .photo-tile img { filter: grayscale(.4); }
+.btn.is-disabled { opacity: .5; pointer-events: none; }
+.tile-grid--3 { grid-template-columns: repeat(3, 1fr); }
+.tile-grid--3 .photo-tile { aspect-ratio: 3 / 2; }
+.site-footer__nav { grid-template-columns: repeat(4, 1fr); }
+.anchor-nav { position: static; border-bottom: 0; background: transparent; }
+.anchor-nav ul { gap: 24px; padding-top: 16px; }
+.anchor-nav a { border: 1px solid var(--c-line); border-radius: 999px; padding: 8px 22px; font-size: 13px; font-weight: 400; }
+.anchor-nav a:hover { border-color: var(--c-primary); }
+.quote-title.text-center { text-align: center; }
+@media (max-width: 1024px) { .shop-grid { grid-template-columns: repeat(2, 1fr); } .tile-grid--3 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .shop-grid, .tile-grid--3 { grid-template-columns: 1fr; } }

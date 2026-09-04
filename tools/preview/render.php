@@ -27,15 +27,11 @@ $mods = array(
 
 $views = array(
 	'index'      => array( 'view' => 'front',    'template' => '',           'title' => 'トップ',            'file' => 'front-page.php' ),
-	'about'      => array( 'view' => 'page',     'template' => 'about',      'title' => '私たちについて',       'file' => 'page-about.php' ),
 	'message'    => array( 'view' => 'page',     'template' => 'message',    'title' => '私たちの想い',        'file' => 'page-message.php' ),
 	'philosophy' => array( 'view' => 'page',     'template' => 'philosophy', 'title' => 'ブランド理念',        'file' => 'page-philosophy.php' ),
 	'commitment' => array( 'view' => 'page',     'template' => 'commitment', 'title' => '私たちのこだわり',      'file' => 'page-commitment.php' ),
 	'company'    => array( 'view' => 'page',     'template' => 'company',    'title' => '会社概要',           'file' => 'page-company.php' ),
 	'business'   => array( 'view' => 'page',     'template' => 'business',   'title' => '事業内容',           'file' => 'page-business.php' ),
-	'products'   => array( 'view' => 'archive',  'template' => 'products',   'title' => '商品紹介',           'file' => 'archive-products.php' ),
-	'category'   => array( 'view' => 'taxonomy', 'template' => 'products',   'title' => 'フード',            'file' => 'taxonomy-product_category.php' ),
-	'product'    => array( 'view' => 'product',  'template' => 'products',   'title' => '商品詳細',           'file' => 'single-products.php' ),
 	'news'       => array( 'view' => 'archive',  'template' => 'post',       'title' => 'お知らせ',           'file' => 'home.php' ),
 	'column'     => array( 'view' => 'archive',  'template' => 'column',     'title' => 'コラム',            'file' => 'archive.php' ),
 	'single'     => array( 'view' => 'single',   'template' => 'column',     'title' => '記事',             'file' => 'single.php' ),

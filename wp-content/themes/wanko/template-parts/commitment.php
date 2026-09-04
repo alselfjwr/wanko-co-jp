@@ -16,7 +16,7 @@ $compact = ! empty( $args['compact'] );
 			<figure class="commitment__image"><img src="<?php echo esc_url( $image ); ?>" alt="" width="1600" height="900"></figure>
 		<?php endif; ?>
 		<div class="commitment__text">
-			<?php wanko_section_title( 'Commitment', '私たちのこだわり', 'left' ); ?>
+			<?php wanko_section_title( 'Commitment', '私たちのお約束', 'left' ); ?>
 			<p class="commitment__catch"><?php echo esc_html( wanko_get( 'commitment_catch' ) ); ?></p>
 			<p class="commitment__lead"><?php wanko_the_lines( 'commitment_lead' ); ?></p>
 			<ol class="commitment__list">
@@ -25,7 +25,7 @@ $compact = ! empty( $args['compact'] );
 					<li><span><?php echo esc_html( sprintf( '%02d', $i ) ); ?></span><?php echo esc_html( wanko_get( "commitment_{$i}_title" ) ); ?></li>
 				<?php endfor; ?>
 			</ol>
-			<a class="btn btn--ghost" href="<?php echo esc_url( wanko_page_url( 'about/commitment' ) ); ?>">こだわりを見る<?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?></a>
+			<a class="btn btn--ghost" href="<?php echo esc_url( wanko_page_url( 'company' ) . '#promise' ); ?>">お約束を見る<?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?></a>
 		</div>
 	</div>
 </section>
@@ -36,7 +36,7 @@ $compact = ! empty( $args['compact'] );
 			<img class="promise-band__bg" src="<?php echo esc_url( $image ); ?>" alt="" loading="lazy">
 		<?php endif; ?>
 		<div class="container promise-band__inner">
-			<?php wanko_section_title( 'Commitment', '私たちのこだわり' ); ?>
+			<?php wanko_section_title( 'Commitment', '私たちのお約束' ); ?>
 			<p class="promise-band__catch"><?php echo esc_html( wanko_get( 'commitment_catch' ) ); ?></p>
 			<p class="promise-band__lead"><?php wanko_the_lines( 'commitment_lead' ); ?></p>
 		</div>

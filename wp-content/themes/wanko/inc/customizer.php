@@ -23,8 +23,8 @@ function wanko_defaults() {
 		'hero_image'       => $img . 'photo-hero.jpg',
 		'hero_label'       => 'わんわんわんこ パーパス',
 		'page_hero_image'  => $img . 'photo-commitment.jpg',
-		'hero_btn_label'   => '私たちの想いを見る',
-		'hero_btn_url'     => '/about/message/',
+		'hero_btn_label'   => '事業内容を見る',
+		'hero_btn_url'     => '/business/',
 
 		// こだわりのペットフード（ECサイトバナー）.
 		'shop_cat_name'    => 'にゃんにゃんデリバリーフーズ',
@@ -39,9 +39,6 @@ function wanko_defaults() {
 		'shop_all_desc'    => 'フードから日用品まで、ペットとの暮らしをまるごとサポート。',
 		'shop_all_url'     => '',
 		'shop_all_image'   => $img . 'photo-all-pets.jpg',
-
-		// トップ：商品紹介.
-		'products_lead'    => 'わんちゃん・ねこちゃんの毎日に寄り添う、こだわりのフードとおやつ、暮らしの用品をご紹介します。',
 
 		// 私たちの想い（ブランドストーリー）.
 		'story_catch'      => 'ペットと人が、もっと幸せに暮らせる毎日を。',
@@ -151,7 +148,6 @@ function wanko_customize_register( $wp_customize ) {
 
 	$sections = array(
 		'hero'       => 'トップ：メインビジュアル',
-		'products'   => 'トップ：商品紹介',
 		'story'      => '私たちについて：私たちの想い',
 		'philosophy' => '私たちについて：ブランド理念',
 		'commitment' => '私たちについて：私たちのこだわり',
@@ -199,8 +195,6 @@ function wanko_customize_register( $wp_customize ) {
 		'shop_all_desc'     => array( 'shop', '【総合】説明文', 'textarea' ),
 		'shop_all_url'      => array( 'shop', '【総合】ECサイトURL（空欄で Coming Soon 表示）', 'url' ),
 		'shop_all_image'    => array( 'shop', '【総合】写真（推奨 1600×600px）', 'image' ),
-
-		'products_lead'     => array( 'products', 'リード文', 'textarea' ),
 
 		'story_catch'       => array( 'story', 'キャッチ', 'text' ),
 		'story_lead'        => array( 'story', 'リード文', 'textarea' ),

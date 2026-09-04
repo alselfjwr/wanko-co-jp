@@ -17,18 +17,14 @@ defined( 'ABSPATH' ) || exit;
 function wanko_page_definitions() {
 	// slug => [ title, template, content, parent slug ]
 	return array(
-		'home'       => array( 'ホーム', '', '', '' ),
-		'about'      => array( '私たちについて', 'page-about.php', '', '' ),
-		'message'    => array( '私たちの想い', 'page-message.php', '', 'about' ),
-		'philosophy' => array( 'ブランド理念', 'page-philosophy.php', '', 'about' ),
-		'commitment' => array( '私たちのこだわり', 'page-commitment.php', '', 'about' ),
-		'company'    => array( '会社概要', 'page-company.php', '', '' ),
-		'business'   => array( '事業内容', 'page-business.php', '', '' ),
-		'news'       => array( 'お知らせ', '', '', '' ),
-		'recruit'    => array( '採用情報', 'page-recruit.php', wanko_default_recruit_content(), '' ),
-		'contact'    => array( 'お問い合わせ', 'page-contact.php', '', '' ),
-		'privacy'    => array( 'プライバシーポリシー', 'page-privacy.php', wanko_default_privacy_content(), '' ),
-		'sitemap'    => array( 'サイトマップ', 'page-sitemap.php', '', '' ),
+		'home'     => array( 'ホーム', '', '', '' ),
+		'company'  => array( '企業情報', 'page-company.php', '', '' ),
+		'business' => array( '事業内容', 'page-business.php', '', '' ),
+		'news'     => array( 'お知らせ', '', '', '' ),
+		'recruit'  => array( '採用情報', 'page-recruit.php', wanko_default_recruit_content(), '' ),
+		'contact'  => array( 'お問い合わせ', 'page-contact.php', '', '' ),
+		'privacy'  => array( 'プライバシーポリシー', 'page-privacy.php', wanko_default_privacy_content(), '' ),
+		'sitemap'  => array( 'サイトマップ', 'page-sitemap.php', '', '' ),
 	);
 }
 
@@ -80,17 +76,15 @@ function wanko_activate() {
 	}
 
 	wanko_build_menu( 'primary', 'グローバルナビ', array(
-		array( 'url'  => home_url( '/products/' ), 'title' => '商品紹介' ),
-		array( 'page' => 'about' ),
 		array( 'page' => 'company' ),
+		array( 'page' => 'business' ),
 		array( 'page' => 'news' ),
 		array( 'url'  => home_url( '/column/' ), 'title' => 'コラム' ),
+		array( 'page' => 'recruit' ),
 		array( 'page' => 'contact' ),
 	), $ids );
 
 	wanko_build_menu( 'footer', 'フッターナビ', array(
-		array( 'url'  => home_url( '/products/' ), 'title' => '商品紹介' ),
-		array( 'page' => 'about' ),
 		array( 'page' => 'company' ),
 		array( 'page' => 'business' ),
 		array( 'page' => 'news' ),
@@ -101,14 +95,9 @@ function wanko_activate() {
 		array( 'page' => 'sitemap' ),
 	), $ids );
 
-	// 初期の商品カテゴリー／コラムカテゴリー（存在しない場合のみ作成）.
+	// 初期のコラムカテゴリー（存在しない場合のみ作成）.
 	wanko_register_post_types();
-	foreach ( array( 'food' => 'フード', 'treat' => 'おやつ', 'goods' => '用品', 'other' => 'その他' ) as $slug => $name ) {
-		if ( ! term_exists( $slug, 'product_category' ) ) {
-			wp_insert_term( $name, 'product_category', array( 'slug' => $slug ) );
-		}
-	}
-	foreach ( array( 'life' => '犬との暮らし', 'health' => '健康', 'food' => '食事', 'care' => 'お手入れ', 'product' => '商品について' ) as $slug => $name ) {
+	foreach ( array( 'life' => '犬・猫との暮らし', 'health' => '健康', 'food' => '食事', 'care' => 'お手入れ', 'product' => '商品について' ) as $slug => $name ) {
 		if ( ! term_exists( $slug, 'column_category' ) ) {
 			wp_insert_term( $name, 'column_category', array( 'slug' => $slug ) );
 		}
