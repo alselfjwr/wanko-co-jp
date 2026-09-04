@@ -23,14 +23,14 @@ WordPress本体・プラグイン・アップロード画像はこのリポジ�
 
 ## お名前.com への反映手順（現行サイトを止めずに設置 → 確認OK後に切り替え）
 
-WordPress は `public_html/wp/` に設置します。現行サイト（静的HTML）はそのまま公開され続け、新サイトは `https://wanko.co.jp/wp/` で確認できます。切り替えは最後に5分で行い、いつでも元に戻せます。
+WordPress は `public_html/wanko.co.jp/wp/` に設置します（お名前.comではドメインごとに `public_html/ドメイン名/` が公開ディレクトリです。現行サイトも `public_html/wanko.co.jp/` にあります）。現行サイト（静的HTML）はそのまま公開され続け、新サイトは `https://wanko.co.jp/wp/` で確認できます。切り替えは最後に5分で行い、いつでも元に戻せます。
 
 ### 1. 設置（初回のみ）
 
 1. **現行サイトのバックアップ**：ファイルマネージャーで `public_html` を丸ごとダウンロード（取得済み）。
 2. **WordPress簡単インストール**：コントロールパネル → WordPress簡単インストール → ドメイン `wanko.co.jp`、**インストール先ディレクトリ `wp`**、サイト名「合同会社わんわんわんこ」、管理者ユーザー名は `admin` 以外。
 3. **FTPアカウントの確認**：コントロールパネル「FTP・SSHアカウント」でサーバー名・アカウント名・パスワードを確認。
-4. **GitHub Secrets 登録**：Settings → Secrets and variables → Actions で `FTP_HOST` `FTP_USER` `FTP_PASSWORD` を登録。配置先が `/public_html/wp/wp-content/themes/wanko/` と異なる場合のみ `FTP_REMOTE_PATH` も登録。
+4. **GitHub Secrets 登録**：Settings → Secrets and variables → Actions で `FTP_HOST` `FTP_USER` `FTP_PASSWORD` を登録。配置先が `/public_html/wanko.co.jp/wp/wp-content/themes/wanko/` と異なる場合のみ `FTP_REMOTE_PATH` も登録。
 5. **デプロイ実行**：Actions → 「Deploy theme」 → Run workflow。以降は push のたびに自動同期。
 6. **テーマ有効化**：`https://wanko.co.jp/wp/wp-admin/` → 外観 → テーマ → 「Wanko Corporate」を有効化（固定ページ・メニュー・トップ設定・パーマリンクが自動作成）。
 7. **検索エンジン除外**：設定 → 表示設定 →「検索エンジンがサイトをインデックスしないようにする」にチェック（切り替え時に外す）。
@@ -43,15 +43,15 @@ WordPress は `public_html/wp/` に設置します。現行サイト（静的HTM
 WordPress のファイルは `wp/` に置いたまま、公開URLだけをドメイン直下にします（WordPress公式の「WordPress を専用ディレクトリに置く」方式）。
 
 1. 管理画面 → 設定 → 一般 で、**「サイトアドレス (URL)」だけ** を `https://wanko.co.jp` に変更して保存（「WordPress アドレス (URL)」は `https://wanko.co.jp/wp` のまま）。保存直後は一時的にトップが表示されなくなりますが、次の手順で直ります。
-2. ファイルマネージャーで `public_html/wp/index.php` を `public_html/` に**コピー**し、コピーした方の最終行を次のように書き換える：
+2. ファイルマネージャーで `public_html/wanko.co.jp/wp/index.php` を `public_html/wanko.co.jp/` に**コピー**し、コピーした方の最終行を次のように書き換える：
    `require __DIR__ . '/wp-blog-header.php';` → `require __DIR__ . '/wp/wp-blog-header.php';`
-3. `public_html/wp/.htaccess` があれば `public_html/` にコピー（なければ手順5で自動生成）。
-4. 現行サイトの `public_html/index.html` を `index_old.html` にリネーム（旧サイトの他のフォルダはそのままで構いません。後日削除）。
+3. `public_html/wanko.co.jp/wp/.htaccess` があれば `public_html/wanko.co.jp/` にコピー（なければ手順5で自動生成）。
+4. 現行サイトの `public_html/wanko.co.jp/index.html` を `index_old.html` にリネーム（旧サイトの他のフォルダはそのままで構いません。後日削除）。
 5. 管理画面 → 設定 → パーマリンク → 「変更を保存」を1回押す。
 6. 設定 → 表示設定 の「インデックスしない」チェックを外す。
 7. `https://wanko.co.jp/` と `https://wanko.co.jp/company/` などを開いて表示を確認。
 
-**元に戻す場合**：`index_old.html` を `index.html` に戻し、`public_html/index.php` と `public_html/.htaccess` を削除、設定 → 一般 の「サイトアドレス」を `https://wanko.co.jp/wp` に戻す。
+**元に戻す場合**：`index_old.html` を `index.html` に戻し、`public_html/wanko.co.jp/index.php` と `public_html/wanko.co.jp/.htaccess` を削除、設定 → 一般 の「サイトアドレス」を `https://wanko.co.jp/wp` に戻す。
 
 ### 以降の更新
 
