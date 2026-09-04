@@ -56,4 +56,5 @@ $image = wanko_get( 'story_image' );
 		<?php if ( get_the_content() ) : ?><div class="prose prose--page"><?php the_content(); ?></div><?php endif; ?>
 	</div>
 </section>
+<section class="section section--tiles"><div class="container"><?php get_template_part( 'template-parts/company-tiles' ); ?></div></section>
 <?php get_footer(); ?>

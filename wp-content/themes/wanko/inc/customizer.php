@@ -21,8 +21,10 @@ function wanko_defaults() {
 		'hero_catch'       => "わんちゃんにも、ねこちゃんにも。\n「おいしい」と「安心」を毎日に。",
 		'hero_lead'        => '合同会社わんわんわんこは、ペット用品・ペットおやつの卸売・販売と、こだわりのペットフードのお届けを通じて、飼い主さまとペット双方にとって価値のあるサービスを提供しています。',
 		'hero_image'       => $img . 'photo-hero.jpg',
-		'hero_btn_label'   => '事業内容を見る',
-		'hero_btn_url'     => '/business/',
+		'hero_label'       => 'わんわんわんこ パーパス',
+		'page_hero_image'  => $img . 'photo-commitment.jpg',
+		'hero_btn_label'   => '私たちの想いを見る',
+		'hero_btn_url'     => '/about/message/',
 
 		// こだわりのペットフード（ECサイトバナー）.
 		'shop_cat_name'    => 'にゃんにゃんデリバリーフーズ',
@@ -180,6 +182,8 @@ function wanko_customize_register( $wp_customize ) {
 		'hero_catch'        => array( 'hero', 'キャッチコピー（改行可）', 'textarea' ),
 		'hero_lead'         => array( 'hero', 'リード文', 'textarea' ),
 		'hero_image'        => array( 'hero', 'メインビジュアル画像（推奨 1600×1000px）', 'image' ),
+		'hero_label'        => array( 'hero', 'キャッチの上の小さなラベル', 'text' ),
+		'page_hero_image'   => array( 'hero', '下層ページ共通のバナー写真（推奨 1600×500px）', 'image' ),
 		'hero_btn_label'    => array( 'hero', 'ボタンのラベル', 'text' ),
 		'hero_btn_url'      => array( 'hero', 'ボタンのリンク先', 'text' ),
 

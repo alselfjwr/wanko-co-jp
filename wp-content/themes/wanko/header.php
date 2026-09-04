@@ -24,6 +24,7 @@
 				'container'      => false,
 				'menu_class'     => 'global-nav__list',
 				'depth'          => 1,
+				'walker'         => new Wanko_Nav_Walker(),
 				'fallback_cb'    => 'wanko_nav_fallback',
 			) );
 			?>

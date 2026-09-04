@@ -211,3 +211,5 @@ function wp_get_attachment_image( $id, $size = '', $icon = false, $attr = array(
 	$a = ''; foreach ( $attr as $k => $v ) { $a .= ' ' . $k . '="' . esc_attr( $v ) . '"'; }
 	return '<img src="' . PREVIEW_THEME_URI . '/assets/img/' . $map[ $id ] . '" alt=""' . $a . '>';
 }
+class Walker_Nav_Menu {}
+function wp_parse_url( $u, $c = -1 ) { return parse_url( $u, $c ); }

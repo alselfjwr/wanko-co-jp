@@ -12,12 +12,6 @@ $terms = get_terms( array( 'taxonomy' => 'product_category', 'hide_empty' => fal
 ?>
 <div class="container section">
 	<?php if ( $terms && ! is_wp_error( $terms ) ) : ?>
-		<nav class="term-nav" aria-label="商品カテゴリー">
-			<?php foreach ( $terms as $term ) : ?>
-				<a href="#cat-<?php echo esc_attr( $term->slug ); ?>"><?php echo esc_html( $term->name ); ?></a>
-			<?php endforeach; ?>
-		</nav>
-
 		<?php foreach ( $terms as $term ) : ?>
 			<?php
 			$q = new WP_Query( array(
@@ -29,11 +23,11 @@ $terms = get_terms( array( 'taxonomy' => 'product_category', 'hide_empty' => fal
 			) );
 			?>
 			<section class="product-group" id="cat-<?php echo esc_attr( $term->slug ); ?>">
-				<div class="section-head">
-					<h2 class="product-group__title"><?php echo esc_html( $term->name ); ?></h2>
-					<a class="text-link" href="<?php echo esc_url( get_term_link( $term ) ); ?>"><?php echo esc_html( $term->name ); ?>の一覧<?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?></a>
+				<div class="product-group__head">
+					<span class="product-group__icon"><?php echo wanko_icon( 'food' === $term->slug ? 'dog' : ( 'treat' === $term->slug ? 'cat' : 'paw' ) ); // phpcs:ignore ?></span>
+					<h2 class="product-group__title"><?php echo esc_html( $term->name ); ?>を探す</h2>
+					<span class="product-group__sub">おすすめ<?php echo esc_html( $term->name ); ?></span>
 				</div>
-				<?php if ( $term->description ) : ?><p class="product-group__desc"><?php echo esc_html( $term->description ); ?></p><?php endif; ?>
 				<?php if ( $q->have_posts() ) : ?>
 					<div class="product-grid">
 						<?php
@@ -47,6 +41,7 @@ $terms = get_terms( array( 'taxonomy' => 'product_category', 'hide_empty' => fal
 				<?php else : ?>
 					<p class="empty-note">このカテゴリーの商品は準備中です。</p>
 				<?php endif; ?>
+				<p class="text-center section-more"><a class="btn btn--primary" href="<?php echo esc_url( get_term_link( $term ) ); ?>"><?php echo esc_html( $term->name ); ?>一覧<?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?></a></p>
 			</section>
 		<?php endforeach; ?>
 	<?php else : ?>

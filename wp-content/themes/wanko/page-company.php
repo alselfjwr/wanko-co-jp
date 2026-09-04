@@ -24,8 +24,9 @@ $rows = array(
 );
 ?>
 <section class="section" id="overview">
-	<div class="container">
-		<table class="spec-table">
+	<div class="container container--narrow">
+		<h2 class="company-name"><?php echo esc_html( wanko_get( 'company_name' ) ); ?></h2>
+		<table class="spec-table spec-table--lines">
 			<tbody>
 			<?php foreach ( $rows as $label => $key ) : ?>
 				<?php
@@ -59,11 +60,10 @@ $rows = array(
 			<div class="map-embed"><iframe src="https://www.google.com/maps?q=<?php echo rawurlencode( preg_replace( '/^〒?\d{3}-?\d{4}\s*/u', '', str_replace( "\n", ' ', wanko_get( 'company_address' ) ) ) ); ?>&output=embed" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade" title="所在地の地図"></iframe></div>
 		<?php endif; ?>
 		<?php if ( get_the_content() ) : ?><div class="prose prose--page" style="margin-top:40px"><?php the_content(); ?></div><?php endif; ?>
-		<div class="link-grid" style="margin-top:48px">
-			<a class="link-tile" href="<?php echo esc_url( wanko_page_url( 'about/message' ) ); ?>"><span class="link-tile__en">Message</span><span class="link-tile__ja">私たちの想い</span><?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?></a>
-			<a class="link-tile" href="<?php echo esc_url( wanko_page_url( 'business' ) ); ?>"><span class="link-tile__en">Business</span><span class="link-tile__ja">事業内容</span><?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?></a>
-			<a class="link-tile" href="<?php echo esc_url( wanko_page_url( 'recruit' ) ); ?>"><span class="link-tile__en">Recruit</span><span class="link-tile__ja">採用情報</span><?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?></a>
-		</div>
+		<?php if ( wanko_get( 'company_address' ) ) : ?>
+			<p class="text-right"><a class="btn btn--ghost btn--sm" href="https://www.google.com/maps/search/?api=1&query=<?php echo rawurlencode( str_replace( "\n", ' ', wanko_get( 'company_address' ) ) ); ?>" target="_blank" rel="noopener">Google Mapで見る<?php echo wanko_icon( 'ext' ); // phpcs:ignore ?></a></p>
+		<?php endif; ?>
 	</div>
 </section>
+<section class="section section--tiles"><div class="container"><?php get_template_part( 'template-parts/company-tiles' ); ?></div></section>
 <?php get_footer(); ?>

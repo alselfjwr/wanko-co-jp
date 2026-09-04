@@ -91,11 +91,7 @@ function wanko_section_title( $en, $ja, $align = 'center' ) {
  * @param string $en English label.
  */
 function wanko_page_hero( $ja, $en ) {
-	printf(
-		'<div class="page-hero"><div class="container"><h1 class="page-hero__title">%1$s</h1><span class="page-hero__en">%2$s</span></div></div>',
-		esc_html( $ja ),
-		esc_html( $en )
-	);
+	wanko_page_banner( $ja, $en );
 }
 
 /**
@@ -263,7 +259,7 @@ function wanko_product_card( $post_id = null ) {
 				<h3 class="product-card__name"><?php echo esc_html( get_the_title( $post_id ) ); ?></h3>
 				<?php if ( $catch ) : ?><p class="product-card__catch"><?php echo esc_html( $catch ); ?></p><?php endif; ?>
 				<?php if ( $price ) : ?><p class="product-card__price"><?php echo esc_html( $price ); ?></p><?php endif; ?>
-				<span class="product-card__more">商品詳細 <?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?></span>
+				<span class="product-card__more btn btn--ghost btn--sm">商品詳細<?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?></span>
 			</div>
 		</a>
 	</article>
@@ -276,22 +272,20 @@ function wanko_product_card( $post_id = null ) {
  * @param WP_Term $term Term.
  */
 function wanko_product_category_card( $term ) {
-	$image = wanko_product_category_image( $term );
+	$en = wanko_en_label( $term->slug );
 	?>
-	<a class="cat-card" href="<?php echo esc_url( get_term_link( $term ) ); ?>">
-		<div class="cat-card__media">
-			<?php if ( $image ) : ?>
-				<img src="<?php echo esc_url( $image ); ?>" alt="" loading="lazy">
-			<?php else : ?>
-				<div class="thumb-placeholder"><?php echo wanko_icon( 'paw' ); // phpcs:ignore ?></div>
-			<?php endif; ?>
-		</div>
-		<div class="cat-card__body">
-			<span class="cat-card__label"><?php echo esc_html( $term->name ); ?>を探す</span>
-			<?php if ( $term->description ) : ?><span class="cat-card__desc"><?php echo esc_html( $term->description ); ?></span><?php endif; ?>
-			<?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?>
-		</div>
-	</a>
+	<div class="cat-block">
+		<?php
+		wanko_photo_tile( array(
+			'url'   => get_term_link( $term ),
+			'image' => wanko_product_category_image( $term ),
+			'en'    => $en ? strtoupper( $en ) : '',
+			'ja'    => $term->name . 'を探す',
+			'sub'   => $term->description,
+		) );
+		?>
+		<a class="btn btn--ghost btn--sm" href="<?php echo esc_url( get_term_link( $term ) ); ?>"><?php echo esc_html( $term->name ); ?>一覧<?php echo wanko_icon( 'arrow' ); // phpcs:ignore ?></a>
+	</div>
 	<?php
 }
 
@@ -335,12 +329,24 @@ function wanko_lines_to_array( $text ) {
  * Post date + optional category label for list items.
  */
 function wanko_post_meta() {
-	echo '<time class="post-meta__date" datetime="' . esc_attr( get_the_date( 'c' ) ) . '">' . esc_html( get_the_date( 'Y.m.d' ) ) . '</time>';
 	if ( 'column' === get_post_type() ) {
 		$terms = get_the_terms( get_the_ID(), 'column_category' );
+		$tags  = get_the_terms( get_the_ID(), 'column_tag' );
+		echo '<span class="post-meta__tags">';
 		if ( $terms && ! is_wp_error( $terms ) ) {
-			echo '<span class="post-meta__cat">' . esc_html( $terms[0]->name ) . '</span>';
+			echo '<span class="post-meta__cat">#' . esc_html( $terms[0]->name ) . '</span>';
 		}
+		if ( $tags && ! is_wp_error( $tags ) ) {
+			foreach ( array_slice( $tags, 0, 2 ) as $tag ) {
+				echo '<span class="post-meta__cat">#' . esc_html( $tag->name ) . '</span>';
+			}
+		}
+		echo '</span>';
+		echo '<time class="post-meta__date" datetime="' . esc_attr( get_the_date( 'c' ) ) . '">' . esc_html( get_the_date( 'Y.m.d' ) ) . '</time>';
+		return;
+	}
+	echo '<time class="post-meta__date" datetime="' . esc_attr( get_the_date( 'c' ) ) . '">' . esc_html( get_the_date( 'Y.m.d' ) ) . '</time>';
+	if ( false ) {
 	} elseif ( 'products' === get_post_type() ) {
 		$terms = get_the_terms( get_the_ID(), 'product_category' );
 		if ( $terms && ! is_wp_error( $terms ) ) {
@@ -390,7 +396,107 @@ function wanko_nav_fallback( $args ) {
 	}
 	echo '<ul class="' . esc_attr( $args['menu_class'] ) . '">';
 	foreach ( $items as $label => $url ) {
-		printf( '<li class="menu-item"><a href="%s">%s</a></li>', esc_url( $url ), esc_html( $label ) );
+		$seg = explode( '/', trim( (string) wp_parse_url( $url, PHP_URL_PATH ), '/' ) )[0];
+		$en  = wanko_en_label( $seg );
+		printf( '<li class="menu-item"><a href="%s">%s<span class="nav-ja">%s</span></a></li>', esc_url( $url ), $en ? '<span class="nav-en">' . esc_html( $en ) . '</span>' : '', esc_html( $label ) );
 	}
 	echo '</ul>';
+}
+
+/**
+ * English label for a nav item / category slug.
+ *
+ * @param string $slug Slug or path segment.
+ * @return string
+ */
+function wanko_en_label( $slug ) {
+	$map = array(
+		'products'   => 'Products',
+		'about'      => 'About',
+		'message'    => 'Message',
+		'philosophy' => 'Philosophy',
+		'commitment' => 'Commitment',
+		'company'    => 'Company',
+		'business'   => 'Business',
+		'news'       => 'News',
+		'column'     => 'Column',
+		'recruit'    => 'Recruit',
+		'contact'    => 'Contact',
+		'privacy'    => 'Privacy',
+		'sitemap'    => 'Sitemap',
+		'food'       => 'Food',
+		'treat'      => 'Treats',
+		'goods'      => 'Goods',
+		'other'      => 'Others',
+	);
+	$slug = strtolower( trim( (string) $slug, '/' ) );
+	return isset( $map[ $slug ] ) ? $map[ $slug ] : '';
+}
+
+/**
+ * Nav walker: renders "EN label" above the Japanese label (reference-site style).
+ * Uses the menu item description as the EN label when set; otherwise maps from the URL.
+ */
+class Wanko_Nav_Walker extends Walker_Nav_Menu {
+	public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) { // phpcs:ignore
+		$classes = empty( $item->classes ) ? array() : (array) $item->classes;
+		$classes = array_filter( $classes, function ( $c ) { return $c && 0 === strpos( $c, 'current' ) || 'menu-item' === $c; } );
+		$en      = trim( (string) $item->description );
+		if ( '' === $en ) {
+			$path = trim( (string) wp_parse_url( $item->url, PHP_URL_PATH ), '/' );
+			$seg  = $path ? explode( '/', $path )[0] : '';
+			$en   = wanko_en_label( $seg );
+		}
+		$output .= '<li class="' . esc_attr( implode( ' ', $classes ) ) . '">';
+		$output .= '<a href="' . esc_url( $item->url ) . '"' . ( ! empty( $item->target ) ? ' target="' . esc_attr( $item->target ) . '"' : '' ) . '>';
+		if ( $en ) {
+			$output .= '<span class="nav-en">' . esc_html( $en ) . '</span>';
+		}
+		$output .= '<span class="nav-ja">' . esc_html( $item->title ) . '</span></a>';
+	}
+	public function end_el( &$output, $item, $depth = 0, $args = null ) { // phpcs:ignore
+		$output .= '</li>';
+	}
+}
+
+/**
+ * Photo tile with dark overlay and centered text (products / company sections).
+ *
+ * @param array $tile [ url, image, en, ja, sub ].
+ */
+function wanko_photo_tile( $tile ) {
+	?>
+	<a class="photo-tile" href="<?php echo esc_url( $tile['url'] ); ?>">
+		<?php if ( ! empty( $tile['image'] ) ) : ?>
+			<img src="<?php echo esc_url( $tile['image'] ); ?>" alt="" loading="lazy">
+		<?php endif; ?>
+		<span class="photo-tile__text">
+			<?php if ( ! empty( $tile['en'] ) ) : ?><span class="photo-tile__en"><?php echo esc_html( $tile['en'] ); ?></span><?php endif; ?>
+			<span class="photo-tile__ja"><?php echo esc_html( $tile['ja'] ); ?></span>
+			<?php if ( ! empty( $tile['sub'] ) ) : ?><span class="photo-tile__sub"><?php echo esc_html( $tile['sub'] ); ?></span><?php endif; ?>
+		</span>
+	</a>
+	<?php
+}
+
+/**
+ * Page hero with photo banner (rounded, overlay) – reference-site style.
+ *
+ * @param string $ja    Japanese title.
+ * @param string $en    English label.
+ * @param string $image Image URL (defaults to customizer page_hero_image).
+ */
+function wanko_page_banner( $ja, $en, $image = '' ) {
+	$image = $image ? $image : wanko_get( 'page_hero_image' );
+	?>
+	<div class="page-banner<?php echo $image ? ' has-image' : ''; ?>">
+		<div class="page-banner__inner">
+			<?php if ( $image ) : ?><img src="<?php echo esc_url( $image ); ?>" alt=""><?php endif; ?>
+			<div class="page-banner__text">
+				<h1 class="page-banner__title"><?php echo esc_html( $ja ); ?></h1>
+				<?php if ( $en ) : ?><span class="page-banner__en"><?php echo esc_html( $en ); ?></span><?php endif; ?>
+			</div>
+		</div>
+	</div>
+	<?php
 }
