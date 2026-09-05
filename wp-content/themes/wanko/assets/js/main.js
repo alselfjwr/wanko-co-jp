@@ -36,7 +36,7 @@
 		});
 	}
 
-	// MV slideshow (crossfade every 5s; pauses when the tab is hidden).
+	// MV slideshow (crossfade every 3.5s; pauses when the tab is hidden).
 	var slidesWrap = document.querySelector('[data-hero-slides]');
 	var slides = slidesWrap ? slidesWrap.querySelectorAll('.hero__slide') : [];
 	if (slides.length > 1) {
@@ -47,7 +47,7 @@
 			current = (current + 1) % slides.length;
 			slides[current].classList.add('is-active');
 		};
-		var start = function () { if (!timer) { timer = window.setInterval(next, 5000); } };
+		var start = function () { if (!timer) { timer = window.setInterval(next, 3500); } };
 		var stop = function () { if (timer) { window.clearInterval(timer); timer = null; } };
 		document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
 		start();
