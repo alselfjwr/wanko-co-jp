@@ -144,6 +144,57 @@ function wanko_migrate_primary_menu_contact() {
 add_action( 'init', 'wanko_migrate_primary_menu_contact', 20 );
 
 /**
+ * One-time: create the initial お知らせ posts (dated 2026/09/07・09/08).
+ * Posts are published immediately with the given dates so they show up for review.
+ */
+function wanko_seed_news_posts() {
+	if ( get_option( 'wanko_seeded_news_v1' ) ) {
+		return;
+	}
+	$business = wanko_page_url( 'business' );
+	$shop     = wanko_get( 'shop_cat_url' );
+	$posts    = array(
+		array(
+			'slug'    => 'site-renewal-2026',
+			'title'   => 'コーポレートサイトをリニューアルしました',
+			'date'    => '2026-09-07 10:00:00',
+			'content' => "<p>このたび、合同会社わんわんわんこのコーポレートサイトをリニューアルいたしました。</p>\n"
+				. "<p>事業内容やお知らせ、コラムなどを通じて、当社の取り組みをよりわかりやすくお伝えしてまいります。スマートフォンからも見やすい構成となっておりますので、ぜひご覧ください。</p>\n"
+				. "<p>今後とも変わらぬご愛顧を賜りますよう、よろしくお願い申し上げます。</p>",
+		),
+		array(
+			'slug'    => 'nyannyan-delivery-foods-launch',
+			'title'   => '「にゃんにゃんデリバリーフーズ」のサービスを開始しました',
+			'date'    => '2026-09-08 12:00:00',
+			'content' => "<p>猫の「食べる」をもっとラクに。猫の状態やライフステージに合わせたキャットフードを定期的にお届けする「にゃんにゃんデリバリーフーズ」のサービスを開始いたしました。</p>\n"
+				. "<p>フードの種類や量はカスタマイズが可能で、ご自宅まで定期的にお届けします。買い忘れや重い荷物の持ち運びの心配がなく、毎日のごはんを安心して続けていただけます。</p>\n"
+				. '<p>サービスの詳細は<a href="' . esc_url( $business ) . '">事業内容</a>'
+				. ( $shop ? 'または<a href="' . esc_url( $shop ) . '" target="_blank" rel="noopener">にゃんにゃんデリバリーフーズ サービスサイト</a>' : '' )
+				. 'をご覧ください。</p>',
+		),
+	);
+	foreach ( $posts as $p ) {
+		if ( get_page_by_path( $p['slug'], OBJECT, 'post' ) ) {
+			continue;
+		}
+		$id = wp_insert_post( array(
+			'post_type'    => 'post',
+			'post_status'  => 'future',
+			'post_name'    => $p['slug'],
+			'post_title'   => $p['title'],
+			'post_content' => $p['content'],
+			'post_date'    => $p['date'],
+			'post_date_gmt'=> get_gmt_from_date( $p['date'] ),
+		), true );
+		if ( $id && ! is_wp_error( $id ) ) {
+			wp_publish_post( $id ); // keep the future date but make it visible now.
+		}
+	}
+	update_option( 'wanko_seeded_news_v1', 1 );
+}
+add_action( 'init', 'wanko_seed_news_posts', 21 );
+
+/**
  * Build a nav menu once and assign it to a location.
  *
  * @param string $location Menu location.
