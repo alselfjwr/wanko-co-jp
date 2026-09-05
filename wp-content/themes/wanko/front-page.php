@@ -6,7 +6,8 @@
  */
 
 get_header();
-$hero_image = wanko_get( 'hero_image' );
+$hero_image  = wanko_get( 'hero_image' );
+$hero_slides = array_values( array_filter( array( $hero_image, wanko_get( 'hero_image_2' ), wanko_get( 'hero_image_3' ), wanko_get( 'hero_image_4' ) ) ) );
 $btn_url    = wanko_get( 'hero_btn_url' );
 if ( $btn_url && 0 === strpos( $btn_url, '/' ) ) {
 	$btn_url = home_url( $btn_url );
@@ -14,8 +15,14 @@ if ( $btn_url && 0 === strpos( $btn_url, '/' ) ) {
 ?>
 
 <section class="hero<?php echo $hero_image ? ' has-image' : ''; ?>">
-	<div class="hero__bg" aria-hidden="true">
-		<img src="<?php echo esc_url( $hero_image ? $hero_image : WANKO_URI . '/assets/img/hero-default.svg' ); ?>" alt="">
+	<div class="hero__bg<?php echo count( $hero_slides ) > 1 ? ' hero__bg--slides' : ''; ?>" aria-hidden="true" data-hero-slides>
+		<?php if ( ! $hero_slides ) : ?>
+			<img src="<?php echo esc_url( WANKO_URI . '/assets/img/hero-default.svg' ); ?>" alt="">
+		<?php else : ?>
+			<?php foreach ( $hero_slides as $i => $slide ) : ?>
+				<img class="hero__slide<?php echo 0 === $i ? ' is-active' : ''; ?>" src="<?php echo esc_url( $slide ); ?>" alt="" width="1600" height="1000"<?php echo 0 === $i ? ' fetchpriority="high"' : ''; ?>>
+			<?php endforeach; ?>
+		<?php endif; ?>
 	</div>
 	<div class="container hero__inner">
 		<?php if ( wanko_get( 'hero_label' ) ) : ?><span class="hero__label"><?php echo esc_html( wanko_get( 'hero_label' ) ); ?></span><?php endif; ?>

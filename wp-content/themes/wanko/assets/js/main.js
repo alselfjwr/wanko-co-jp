@@ -36,6 +36,23 @@
 		});
 	}
 
+	// MV slideshow (crossfade every 5s; pauses when the tab is hidden).
+	var slidesWrap = document.querySelector('[data-hero-slides]');
+	var slides = slidesWrap ? slidesWrap.querySelectorAll('.hero__slide') : [];
+	if (slides.length > 1) {
+		var current = 0;
+		var timer = null;
+		var next = function () {
+			slides[current].classList.remove('is-active');
+			current = (current + 1) % slides.length;
+			slides[current].classList.add('is-active');
+		};
+		var start = function () { if (!timer) { timer = window.setInterval(next, 5000); } };
+		var stop = function () { if (timer) { window.clearInterval(timer); timer = null; } };
+		document.addEventListener('visibilitychange', function () { document.hidden ? stop() : start(); });
+		start();
+	}
+
 	// Back to top.
 	var toTop = document.querySelector('.to-top');
 	if (toTop) {

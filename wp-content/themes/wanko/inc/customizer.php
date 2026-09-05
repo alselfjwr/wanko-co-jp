@@ -21,6 +21,9 @@ function wanko_defaults() {
 		'hero_catch'       => "わんちゃんにも、ねこちゃんにも。\n「おいしい」と「安心」を毎日に。",
 		'hero_lead'        => '合同会社わんわんわんこは、ペット用品・ペットおやつの卸売・販売と、こだわりのペットフードのお届けを通じて、飼い主さまとペット双方にとって価値のあるサービスを提供しています。',
 		'hero_image'       => $img . 'photo-hero.jpg',
+		'hero_image_2'     => $img . 'photo-hero-2.jpg',
+		'hero_image_3'     => $img . 'photo-hero-3.jpg',
+		'hero_image_4'     => $img . 'photo-hero-4.jpg',
 		'hero_label'       => 'わんわんわんこ パーパス',
 		'page_hero_image'  => $img . 'photo-commitment.jpg',
 
@@ -196,7 +199,10 @@ function wanko_customize_register( $wp_customize ) {
 	$fields = array(
 		'hero_catch'        => array( 'hero', 'キャッチコピー（改行可）', 'textarea' ),
 		'hero_lead'         => array( 'hero', 'リード文', 'textarea' ),
-		'hero_image'        => array( 'hero', 'メインビジュアル画像（推奨 1600×1000px）', 'image' ),
+		'hero_image'        => array( 'hero', 'メインビジュアル画像 1（推奨 1600×1000px・被写体は右寄り）', 'image' ),
+		'hero_image_2'      => array( 'hero', 'メインビジュアル画像 2（空欄で切り替えなし）', 'image' ),
+		'hero_image_3'      => array( 'hero', 'メインビジュアル画像 3', 'image' ),
+		'hero_image_4'      => array( 'hero', 'メインビジュアル画像 4', 'image' ),
 		'hero_label'        => array( 'hero', 'キャッチの上の小さなラベル', 'text' ),
 		'banner_company_image'  => array( 'banners', '企業情報（推奨 1600×420px・横長）', 'image' ),
 		'banner_business_image' => array( 'banners', '事業内容（推奨 1600×420px・横長）', 'image' ),
