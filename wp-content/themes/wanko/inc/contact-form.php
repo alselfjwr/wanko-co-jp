@@ -86,7 +86,11 @@ function wanko_contact_handle() {
 	if ( $sent ) {
 		$auto = $v['name'] . " 様\n\nこの度は、" . $site . " へお問い合わせいただきありがとうございます。\n"
 			. "以下の内容で受け付けいたしました。担当者より折り返しご連絡いたしますので、しばらくお待ちください。\n\n"
-			. "■お問い合わせ種別\n" . $v['type'] . "\n\n■お問い合わせ内容\n" . $v['message'] . "\n\n----\n"
+			. "■お問い合わせ種別\n" . $v['type'] . "\n\n"
+			. "■お名前\n" . $v['name'] . "\n\n"
+			. "■メールアドレス\n" . $v['email'] . "\n\n"
+			. "■電話番号\n" . ( $v['tel'] ? $v['tel'] : '（未入力）' ) . "\n\n"
+			. "■お問い合わせ内容\n" . $v['message'] . "\n\n----\n"
 			. $site . "\n" . ( wanko_get( 'company_tel' ) ? 'TEL: ' . wanko_get( 'company_tel' ) . "\n" : '' ) . home_url( '/' ) . "\n";
 		wp_mail( $v['email'], sprintf( '【%s】お問い合わせを受け付けました', $site ), $auto );
 		$result['status'] = 'sent';
