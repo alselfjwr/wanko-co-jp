@@ -21,7 +21,7 @@ if ( $btn_url && 0 === strpos( $btn_url, '/' ) ) {
 		<?php if ( wanko_get( 'hero_label' ) ) : ?><span class="hero__label"><?php echo esc_html( wanko_get( 'hero_label' ) ); ?></span><?php endif; ?>
 		<h1 class="hero__catch">
 			<?php foreach ( wanko_lines_to_array( wanko_get( 'hero_catch' ) ) as $line ) : ?>
-				<span class="hero__line"><?php echo esc_html( $line ); ?></span>
+				<span class="hero__line"><?php echo wanko_phrase_breaks( $line ); // phpcs:ignore WordPress.Security.EscapeOutput ?></span>
 			<?php endforeach; ?>
 		</h1>
 		<p class="hero__lead"><?php wanko_the_lines( 'hero_lead' ); ?></p>

@@ -17,6 +17,20 @@ function wanko_the_lines( $key ) {
 }
 
 /**
+ * Escape a headline and add soft break opportunities only after Japanese
+ * punctuation (、 。 」), so that with `word-break: keep-all` a line never
+ * wraps mid-phrase (e.g. leaving "にも。" alone on a line).
+ *
+ * @param string $text Plain text.
+ * @return string Escaped HTML with zero-width spaces.
+ */
+function wanko_phrase_breaks( $text ) {
+	$zwsp = "\u{200B}";
+	$text = preg_replace( '/([、。」])/u', '$1' . $zwsp, (string) $text );
+	return esc_html( rtrim( $text, $zwsp ) );
+}
+
+/**
  * Echo multiline theme-mod text as paragraphs (blank line = new paragraph).
  *
  * @param string $key Setting key.
