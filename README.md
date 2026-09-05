@@ -30,7 +30,7 @@ WordPress は `public_html/wanko.co.jp/wp/` に設置します（お名前.com�
 1. **現行サイトのバックアップ**：ファイルマネージャーで `public_html` を丸ごとダウンロード（取得済み）。
 2. **WordPress簡単インストール**：コントロールパネル → WordPress簡単インストール → ドメイン `wanko.co.jp`、**インストール先ディレクトリ `wp`**、サイト名「合同会社わんわんわんこ」、管理者ユーザー名は `admin` 以外。
 3. **FTPアカウントの確認**：コントロールパネル「FTP・SSHアカウント」でサーバー名・アカウント名・パスワードを確認。
-4. **GitHub Secrets 登録**：Settings → Secrets and variables → Actions で `FTP_HOST` `FTP_USER` `FTP_PASSWORD` を登録。配置先が `/public_html/wanko.co.jp/wp/wp-content/themes/wanko/` と異なる場合のみ `FTP_REMOTE_PATH` も登録。
+4. **GitHub Secrets 登録**：Settings → Secrets and variables → Actions で `FTP_HOST` `FTP_USER` `FTP_PASSWORD` を登録。FTPアカウントの接続先ディレクトリは `public_html/wanko.co.jp/wp/wp-content/themes` に制限（テーマ以外に触れない安全な設定）。この場合 `FTP_REMOTE_PATH` は不要（既定 `/wanko/`）。ホーム直下のアカウントを使う場合は `FTP_REMOTE_PATH` に `/public_html/wanko.co.jp/wp/wp-content/themes/wanko/` を登録。
 5. **デプロイ実行**：Actions → 「Deploy theme」 → Run workflow。以降は push のたびに自動同期。
 6. **テーマ有効化**：`https://wanko.co.jp/wp/wp-admin/` → 外観 → テーマ → 「Wanko Corporate」を有効化（固定ページ・メニュー・トップ設定・パーマリンクが自動作成）。
 7. **検索エンジン除外**：設定 → 表示設定 →「検索エンジンがサイトをインデックスしないようにする」にチェック（切り替え時に外す）。
