@@ -590,6 +590,8 @@ a.shop-card:hover .shop-card__media img { transform: scale(1.04); }
 @media (max-width: 560px) {
 	.cat-grid, .cat-grid--2, .cat-grid--4, .promise-list--4 { grid-template-columns: 1fr; }
 	.value-cards { grid-template-columns: 1fr; gap: 14px; }
+	/* リード文の意図的な改行はスマホでは解除して自然に折り返す */
+	.section-lead br, .commitment__lead br { display: none; }
 	/* 固定ページ本文の表（募集要項など）は縦積みに */
 	.prose .wp-block-table table { min-width: 0; width: 100%; }
 	.prose .wp-block-table th, .prose .wp-block-table td { display: block; width: auto; }
