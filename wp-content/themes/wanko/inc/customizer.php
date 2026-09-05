@@ -110,6 +110,15 @@ function wanko_defaults() {
 		// 採用情報.
 		'recruit_lead'     => '「ペットが好き」その気持ちを、仕事にしませんか。合同会社わんわんわんこでは、一緒に事業を育ててくれる仲間を募集しています。',
 		'recruit_body'     => '',
+		'recruit_values_lead' => '小さな会社だからこそ、一人ひとりの姿勢がサービスの品質になります。私たちが仕事のうえで大切にしている4つのことです。',
+		'recruit_value_1_title' => 'ペットと飼い主さまの目線で考える',
+		'recruit_value_1_body'  => '「自分の家族であるペットに与えたいか」を判断の基準に。商品選びも、お客さま対応も、その目線を忘れません。',
+		'recruit_value_2_title' => '誠実に、ていねいに',
+		'recruit_value_2_body'  => '商品も、お取引先も、お客さまも。小さな確認や連絡を惜しまないことが、安心につながると考えています。',
+		'recruit_value_3_title' => '変化を楽しみ、挑戦する',
+		'recruit_value_3_body'  => 'EC・物流・新サービスと、事業はまだ成長の途中です。新しいことを前向きに面白がれる方を歓迎します。',
+		'recruit_value_4_title' => 'チームで支え合う',
+		'recruit_value_4_body'  => '少人数だからこそ、役割を越えて助け合う文化を大切にしています。困ったときに「助けて」と言える職場です。',
 
 		// お問い合わせ.
 		'contact_lead'     => 'ご不明な点やご質問がございましたら、お気軽にお問い合わせください。商品のお取り扱い、法人さまのお取引、採用に関するご相談も承ります。',
@@ -267,6 +276,15 @@ function wanko_customize_register( $wp_customize ) {
 
 		'recruit_lead'      => array( 'recruit', 'リード文', 'textarea' ),
 		'recruit_body'      => array( 'recruit', '補足文（募集要項は固定ページ本文に記載）', 'textarea' ),
+		'recruit_values_lead'   => array( 'recruit', '「大切にしていること」リード文', 'textarea' ),
+		'recruit_value_1_title' => array( 'recruit', '大切にしていること 1：見出し', 'text' ),
+		'recruit_value_1_body'  => array( 'recruit', '大切にしていること 1：本文', 'textarea' ),
+		'recruit_value_2_title' => array( 'recruit', '大切にしていること 2：見出し', 'text' ),
+		'recruit_value_2_body'  => array( 'recruit', '大切にしていること 2：本文', 'textarea' ),
+		'recruit_value_3_title' => array( 'recruit', '大切にしていること 3：見出し', 'text' ),
+		'recruit_value_3_body'  => array( 'recruit', '大切にしていること 3：本文', 'textarea' ),
+		'recruit_value_4_title' => array( 'recruit', '大切にしていること 4：見出し', 'text' ),
+		'recruit_value_4_body'  => array( 'recruit', '大切にしていること 4：本文', 'textarea' ),
 
 		'movie_url'         => array( 'movie', 'YouTube動画URL（設定するとトップに表示）', 'url' ),
 		'movie_title'       => array( 'movie', '見出し', 'text' ),

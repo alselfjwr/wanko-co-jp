@@ -23,14 +23,19 @@ wanko_breadcrumb( array( array( 'label' => '採用情報' ) ) );
 
 <section class="section section--alt">
 	<div class="container">
-		<?php wanko_section_title( 'Commitment', '大切にしていること' ); ?>
-		<ol class="promise-list promise-list--4">
+		<?php wanko_section_title( 'Our Values', '大切にしていること' ); ?>
+		<?php if ( wanko_get( 'recruit_values_lead' ) ) : ?>
+			<p class="section-lead"><?php wanko_the_lines( 'recruit_values_lead' ); ?></p>
+		<?php endif; ?>
+		<ol class="value-cards">
 			<?php for ( $i = 1; $i <= 4; $i++ ) : ?>
-				<?php if ( ! wanko_get( "commitment_{$i}_title" ) ) { continue; } ?>
-				<li class="promise-item">
-					<span class="promise-item__num"><?php echo esc_html( sprintf( '%02d', $i ) ); ?></span>
-					<h3 class="promise-item__title"><?php echo esc_html( wanko_get( "commitment_{$i}_title" ) ); ?></h3>
-					<p class="promise-item__body"><?php wanko_the_lines( "commitment_{$i}_body" ); ?></p>
+				<?php if ( ! wanko_get( "recruit_value_{$i}_title" ) ) { continue; } ?>
+				<li class="value-card">
+					<span class="value-card__num"><?php echo esc_html( sprintf( '%02d', $i ) ); ?></span>
+					<div class="value-card__text">
+						<h3 class="value-card__title"><?php echo esc_html( wanko_get( "recruit_value_{$i}_title" ) ); ?></h3>
+						<p class="value-card__body"><?php wanko_the_lines( "recruit_value_{$i}_body" ); ?></p>
+					</div>
 				</li>
 			<?php endfor; ?>
 		</ol>

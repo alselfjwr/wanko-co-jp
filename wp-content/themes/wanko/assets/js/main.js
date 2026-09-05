@@ -50,7 +50,7 @@
 	}
 
 	// Scroll reveal for sections and cards.
-	var targets = document.querySelectorAll('.section-title, .shop-card, .card, .promise-item, .link-tile, .news-item, .feature, .greeting, .spec-table');
+	var targets = document.querySelectorAll('.section-title, .shop-card, .card, .promise-item, .value-card, .link-tile, .news-item, .feature, .greeting, .spec-table');
 	if ('IntersectionObserver' in window && targets.length) {
 		targets.forEach(function (el, i) {
 			el.setAttribute('data-reveal', '');

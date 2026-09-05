@@ -533,6 +533,22 @@ a.shop-card:hover .shop-card__media img { transform: scale(1.04); }
 
 /* Commitment: 4 columns */
 .promise-list--4 { grid-template-columns: repeat(4, 1fr); }
+
+/* Recruit: 大切にしていること ------------------------------------------- */
+.value-cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; list-style: none; margin: 0; padding: 0; counter-reset: none; }
+.value-card { position: relative; display: flex; gap: 20px; align-items: flex-start; background: #fff; border-radius: var(--radius); padding: 28px 28px 28px 24px; border: 1px solid var(--c-line); overflow: hidden; transition: transform .3s ease, box-shadow .3s ease; }
+.value-card::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 5px; background: var(--c-primary); }
+.value-card:nth-child(2)::before { background: var(--c-accent); }
+.value-card:nth-child(3)::before { background: var(--c-yellow); }
+.value-card:nth-child(4)::before { background: var(--c-primary-dark); }
+.value-card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(10, 49, 144, .08); }
+.value-card__num { flex: 0 0 auto; font-family: var(--f-en); font-size: 32px; line-height: 1; letter-spacing: .04em; color: var(--c-primary); opacity: .9; padding-top: 2px; min-width: 48px; }
+.value-card:nth-child(2) .value-card__num { color: var(--c-accent); }
+.value-card:nth-child(3) .value-card__num { color: var(--c-yellow); }
+.value-card:nth-child(4) .value-card__num { color: var(--c-primary-dark); }
+.value-card__text { min-width: 0; }
+.value-card__title { font-size: 18px; margin: 0 0 10px; line-height: 1.5; }
+.value-card__body { margin: 0; font-size: 14px; line-height: 1.9; color: var(--c-text); }
 .promise-item:nth-child(4) { border-top-color: var(--c-primary); }
 .promise-item:nth-child(4) .promise-item__num { background: var(--c-primary); }
 
@@ -564,6 +580,7 @@ a.shop-card:hover .shop-card__media img { transform: scale(1.04); }
 	.cat-grid, .cat-grid--4 { grid-template-columns: repeat(2, 1fr); }
 	.product-grid { grid-template-columns: repeat(3, 1fr); }
 	.promise-list--4 { grid-template-columns: repeat(2, 1fr); }
+	.value-card { padding: 22px 20px 22px 20px; gap: 16px; }
 	.point-list { grid-template-columns: 1fr; }
 }
 @media (max-width: 860px) {
@@ -575,6 +592,15 @@ a.shop-card:hover .shop-card__media img { transform: scale(1.04); }
 }
 @media (max-width: 560px) {
 	.cat-grid, .cat-grid--2, .cat-grid--4, .promise-list--4 { grid-template-columns: 1fr; }
+	.value-cards { grid-template-columns: 1fr; gap: 14px; }
+	/* 固定ページ本文の表（募集要項など）は縦積みに */
+	.prose .wp-block-table table { min-width: 0; width: 100%; }
+	.prose .wp-block-table th, .prose .wp-block-table td { display: block; width: auto; }
+	.prose .wp-block-table th { border-bottom: 0; padding-bottom: 6px; }
+	.prose .wp-block-table td { border-top: 0; }
+	.prose .wp-block-table tr + tr th { border-top: 0; }
+	.value-card__num { font-size: 26px; min-width: 40px; }
+	.value-card__title { font-size: 16px; }
 	.value-list li { grid-template-columns: 36px 1fr; }
 }
 
