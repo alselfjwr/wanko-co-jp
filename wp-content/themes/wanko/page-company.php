@@ -41,22 +41,20 @@ $imgs = array(
 	</div>
 </nav>
 
+<?php $greeting_photo = wanko_get( 'greeting_image' ) ? wanko_get( 'greeting_image' ) : wanko_get( 'story_image' ); ?>
 <section class="section" id="greeting">
-	<div class="container container--narrow">
+	<div class="container">
 		<?php wanko_section_title( 'Greeting', 'ごあいさつ' ); ?>
-		<p class="quote-title text-center"><?php echo esc_html( wanko_get( 'greeting_title' ) ); ?></p>
-		<div class="greeting<?php echo wanko_get( 'greeting_image' ) ? ' has-image' : ''; ?>">
-			<?php if ( wanko_get( 'greeting_image' ) ) : ?>
-				<figure class="greeting__image"><img src="<?php echo esc_url( wanko_get( 'greeting_image' ) ); ?>" alt="<?php echo esc_attr( wanko_get( 'greeting_name' ) ); ?>"></figure>
-			<?php endif; ?>
-			<div class="greeting__text">
-				<div class="prose"><?php wanko_the_paragraphs( 'greeting_body' ); ?></div>
-				<p class="greeting__name"><?php echo esc_html( wanko_get( 'greeting_name' ) ); ?></p>
-			</div>
-		</div>
-		<?php if ( wanko_get( 'story_image' ) ) : ?>
-			<figure class="story-hero"><img src="<?php echo esc_url( wanko_get( 'story_image' ) ); ?>" alt="" loading="lazy"></figure>
+	</div>
+	<div class="bleed-split bleed-split--right bleed-split--wide bleed-split--stagger greeting<?php echo $greeting_photo ? ' has-image' : ''; ?>">
+		<?php if ( $greeting_photo ) : ?>
+			<figure class="bleed-split__image greeting__image"><img src="<?php echo esc_url( $greeting_photo ); ?>" alt="" loading="lazy"></figure>
 		<?php endif; ?>
+		<div class="bleed-split__text greeting__text">
+			<p class="quote-title"><?php echo esc_html( wanko_get( 'greeting_title' ) ); ?></p>
+			<div class="prose"><?php wanko_the_paragraphs( 'greeting_body' ); ?></div>
+			<p class="greeting__name"><?php echo esc_html( wanko_get( 'greeting_name' ) ); ?></p>
+		</div>
 	</div>
 </section>
 
@@ -110,10 +108,10 @@ $imgs = array(
 	</div>
 	<?php for ( $i = 1; $i <= 4; $i++ ) : ?>
 		<?php if ( ! wanko_get( "commitment_{$i}_title" ) ) { continue; } ?>
-		<div class="alt-block<?php echo 0 === $i % 2 ? ' alt-block--reverse' : ''; ?>">
-			<div class="container alt-block__inner">
-				<figure class="alt-block__image"><img src="<?php echo esc_url( $imgs[ $i ] ); ?>" alt=""></figure>
-				<div class="alt-block__text">
+		<div class="alt-block">
+			<div class="bleed-split <?php echo 0 === $i % 2 ? 'bleed-split--right' : 'bleed-split--left'; ?>">
+				<figure class="bleed-split__image alt-block__image"><img src="<?php echo esc_url( $imgs[ $i ] ); ?>" alt="" loading="lazy"></figure>
+				<div class="bleed-split__text alt-block__text">
 					<span class="alt-block__num"><?php echo esc_html( sprintf( '%02d', $i ) ); ?></span>
 					<h3 class="alt-block__title">「<?php echo esc_html( wanko_get( "commitment_{$i}_title" ) ); ?>」</h3>
 					<div class="prose"><?php wanko_the_paragraphs( "commitment_{$i}_body" ); ?></div>

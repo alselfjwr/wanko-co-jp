@@ -11,11 +11,11 @@ $compact = ! empty( $args['compact'] );
 ?>
 <?php if ( $compact ) : ?>
 <section class="section section--alt section--commitment" id="commitment">
-	<div class="container commitment<?php echo $image ? ' has-image' : ''; ?>">
+	<div class="bleed-split bleed-split--left bleed-split--wide bleed-split--stagger commitment<?php echo $image ? ' has-image' : ''; ?>">
 		<?php if ( $image ) : ?>
-			<figure class="commitment__image"><img src="<?php echo esc_url( $image ); ?>" alt="" width="1600" height="900"></figure>
+			<figure class="bleed-split__image commitment__image"><img src="<?php echo esc_url( $image ); ?>" alt="" width="1600" height="900"></figure>
 		<?php endif; ?>
-		<div class="commitment__text">
+		<div class="bleed-split__text commitment__text">
 			<?php wanko_section_title( 'Commitment', '私たちのお約束', 'left' ); ?>
 			<p class="commitment__catch"><?php echo esc_html( wanko_get( 'commitment_catch' ) ); ?></p>
 			<p class="commitment__lead"><?php wanko_the_lines( 'commitment_lead' ); ?></p>
