@@ -214,7 +214,7 @@ a.shop-card:hover .shop-card__media img { transform: scale(1.04); }
 /* Partners --------------------------------------------------------------- */
 .section--partners { background: #fff; }
 .partner-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px 16px; max-width: 1000px; margin: 0 auto; }
-.partner-list li { background: var(--c-bg-alt); border-radius: 8px; padding: 10px 16px; font-size: 14px; position: relative; padding-left: 30px; }
+.partner-list li { background: var(--c-bg-alt); border-radius: 8px; padding: 10px 16px; font-size: 14px; position: relative; padding-left: 30px; display: flex; align-items: center; }
 .partner-list li::before { content: ""; position: absolute; left: 14px; top: 50%; width: 7px; height: 7px; border-radius: 50%; background: var(--c-accent); transform: translateY(-50%); }
 .promise-item__title { font-size: 18px; margin-bottom: 8px; }
 .promise-item__body { margin: 0; font-size: 13px; color: var(--c-text); }
@@ -774,7 +774,7 @@ a.shop-card:hover .shop-card__media img { transform: scale(1.04); }
 
 /* Contact (built-in form) ------------------------------------------------- */
 .contact-direct__item { border: 1px solid var(--c-line); border-radius: var(--radius); box-shadow: none; }
-.contact-direct__value { font-family: var(--f-en); font-size: 22px; font-weight: 400; letter-spacing: .05em; color: var(--c-text); }
+.contact-direct__value { font-family: var(--f-body); font-size: 20px; font-weight: 500; letter-spacing: .04em; color: var(--c-text); word-break: break-all; text-transform: none; }
 .contact-form { background: transparent; box-shadow: none; border: 1px solid var(--c-line); border-radius: var(--radius); padding: clamp(24px, 4vw, 48px); }
 .contact-form__title { font-size: 20px; text-align: center; border-bottom: 0; padding-bottom: 0; margin-bottom: 32px; letter-spacing: .12em; }
 .wform__hp { position: absolute; left: -9999px; }

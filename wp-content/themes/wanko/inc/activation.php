@@ -94,7 +94,6 @@ function wanko_activate() {
 		array( 'page' => 'news' ),
 		array( 'url'  => home_url( '/column/' ), 'title' => 'コラム' ),
 		array( 'page' => 'recruit' ),
-		array( 'page' => 'contact' ),
 	), $ids );
 
 	wanko_build_menu( 'footer', 'フッターナビ', array(
@@ -120,6 +119,29 @@ function wanko_activate() {
 	flush_rewrite_rules();
 }
 add_action( 'after_switch_theme', 'wanko_activate' );
+
+/**
+ * One-time migration: remove the「お問い合わせ」item from an already-created
+ * primary menu (the header keeps its dedicated contact button instead).
+ */
+function wanko_migrate_primary_menu_contact() {
+	if ( get_option( 'wanko_migrated_nav_contact' ) ) {
+		return;
+	}
+	$locations = get_nav_menu_locations();
+	if ( ! empty( $locations['primary'] ) ) {
+		$contact = get_page_by_path( 'contact' );
+		foreach ( (array) wp_get_nav_menu_items( (int) $locations['primary'] ) as $item ) {
+			$is_contact = ( $contact && 'page' === $item->object && (int) $item->object_id === (int) $contact->ID )
+				|| 'contact' === basename( untrailingslashit( (string) wp_parse_url( $item->url, PHP_URL_PATH ) ) );
+			if ( $is_contact ) {
+				wp_delete_post( $item->ID, true );
+			}
+		}
+	}
+	update_option( 'wanko_migrated_nav_contact', 1 );
+}
+add_action( 'init', 'wanko_migrate_primary_menu_contact', 20 );
 
 /**
  * Build a nav menu once and assign it to a location.

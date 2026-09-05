@@ -85,6 +85,28 @@ function wanko_section_title( $en, $ja, $align = 'center' ) {
 }
 
 /**
+ * Banner image for the current inner page: a per-page customizer setting
+ * (banner_{key}_image) with the shared page_hero_image as fallback.
+ *
+ * @return string Image URL.
+ */
+function wanko_banner_image() {
+	$key = '';
+	if ( is_home() || is_singular( 'post' ) || is_category() || is_tag() || is_date() ) {
+		$key = 'news';
+	} elseif ( is_post_type_archive( 'column' ) || is_singular( 'column' ) || is_tax( array( 'column_category', 'column_tag' ) ) ) {
+		$key = 'column';
+	} elseif ( is_page() ) {
+		$slug = (string) get_post_field( 'post_name', get_queried_object_id() );
+		if ( in_array( $slug, array( 'company', 'business', 'recruit', 'contact' ), true ) ) {
+			$key = $slug;
+		}
+	}
+	$image = $key ? wanko_get( 'banner_' . $key . '_image' ) : '';
+	return $image ? $image : wanko_get( 'page_hero_image' );
+}
+
+/**
  * Page hero (title band) for inner pages.
  *
  * @param string $ja Japanese title.
@@ -308,9 +330,9 @@ function wanko_nav_fallback( $args ) {
 		'お知らせ'   => wanko_news_url(),
 		'コラム'    => get_post_type_archive_link( 'column' ),
 		'採用情報'   => wanko_page_url( 'recruit' ),
-		'お問い合わせ' => wanko_page_url( 'contact' ),
 	);
 	if ( 'footer' === $args['theme_location'] ) {
+		$items['お問い合わせ']      = wanko_page_url( 'contact' );
 		$items['プライバシーポリシー'] = wanko_page_url( 'privacy' );
 		$items['サイトマップ']      = wanko_page_url( 'sitemap' );
 	}
@@ -358,7 +380,26 @@ function wanko_en_label( $slug ) {
  * Uses the menu item description as the EN label when set; otherwise maps from the URL.
  */
 class Wanko_Nav_Walker extends Walker_Nav_Menu {
+	/** @var bool Whether the current item is being skipped. */
+	private $skipping = false;
+
+	/**
+	 * The header has a dedicated「お問い合わせ」button, so a contact link inside
+	 * the primary menu is redundant and is hidden here.
+	 */
+	private function is_hidden( $item, $args ) {
+		if ( ! $args || 'primary' !== ( $args->theme_location ?? '' ) ) {
+			return false;
+		}
+		$path = trim( (string) wp_parse_url( $item->url, PHP_URL_PATH ), '/' );
+		return 'contact' === basename( $path );
+	}
+
 	public function start_el( &$output, $item, $depth = 0, $args = null, $id = 0 ) { // phpcs:ignore
+		if ( $this->is_hidden( $item, $args ) ) {
+			$this->skipping = true;
+			return;
+		}
 		$classes = empty( $item->classes ) ? array() : (array) $item->classes;
 		$classes = array_filter( $classes, function ( $c ) { return $c && 0 === strpos( $c, 'current' ) || 'menu-item' === $c; } );
 		$en      = trim( (string) $item->description );
@@ -375,6 +416,10 @@ class Wanko_Nav_Walker extends Walker_Nav_Menu {
 		$output .= '<span class="nav-ja">' . esc_html( $item->title ) . '</span></a>';
 	}
 	public function end_el( &$output, $item, $depth = 0, $args = null ) { // phpcs:ignore
+		if ( $this->skipping ) {
+			$this->skipping = false;
+			return;
+		}
 		$output .= '</li>';
 	}
 }
@@ -407,7 +452,7 @@ function wanko_photo_tile( $tile ) {
  * @param string $image Image URL (defaults to customizer page_hero_image).
  */
 function wanko_page_banner( $ja, $en, $image = '' ) {
-	$image = $image ? $image : wanko_get( 'page_hero_image' );
+	$image = $image ? $image : wanko_banner_image();
 	?>
 	<div class="page-banner<?php echo $image ? ' has-image' : ''; ?>">
 		<div class="page-banner__inner">

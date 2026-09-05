@@ -23,6 +23,14 @@ function wanko_defaults() {
 		'hero_image'       => $img . 'photo-hero.jpg',
 		'hero_label'       => 'わんわんわんこ パーパス',
 		'page_hero_image'  => $img . 'photo-commitment.jpg',
+
+		// 下層ページのバナー写真（ページ別）.
+		'banner_company_image'  => $img . 'banner-company.jpg',
+		'banner_business_image' => $img . 'banner-business.jpg',
+		'banner_news_image'     => $img . 'banner-news.jpg',
+		'banner_column_image'   => $img . 'banner-column.jpg',
+		'banner_recruit_image'  => $img . 'banner-recruit.jpg',
+		'banner_contact_image'  => $img . 'banner-contact.jpg',
 		'hero_btn_label'   => '事業内容を見る',
 		'hero_btn_url'     => '/business/',
 
@@ -34,7 +42,7 @@ function wanko_defaults() {
 		'shop_dog_name'    => 'わんわんデリバリーフーズ',
 		'shop_dog_desc'    => 'わんちゃんの健康を考えたフードを、ご自宅へ定期的にお届けするサービスです。',
 		'shop_dog_url'     => '',
-		'shop_dog_image'   => $img . 'photo-dog-food.jpg',
+		'shop_dog_image'   => $img . 'photo-dog.jpg',
 		'shop_all_name'    => 'ペット総合ショップ',
 		'shop_all_desc'    => 'フードから日用品まで、ペットとの暮らしをまるごとサポート。',
 		'shop_all_url'     => '',
@@ -149,6 +157,7 @@ function wanko_customize_register( $wp_customize ) {
 
 	$sections = array(
 		'hero'       => 'トップ：メインビジュアル',
+		'banners'    => '下層ページ：バナー写真',
 		'story'      => '私たちについて：私たちの想い',
 		'philosophy' => '私たちについて：ブランド理念',
 		'commitment' => '私たちについて：私たちのこだわり',
@@ -180,7 +189,13 @@ function wanko_customize_register( $wp_customize ) {
 		'hero_lead'         => array( 'hero', 'リード文', 'textarea' ),
 		'hero_image'        => array( 'hero', 'メインビジュアル画像（推奨 1600×1000px）', 'image' ),
 		'hero_label'        => array( 'hero', 'キャッチの上の小さなラベル', 'text' ),
-		'page_hero_image'   => array( 'hero', '下層ページ共通のバナー写真（推奨 1600×500px）', 'image' ),
+		'banner_company_image'  => array( 'banners', '企業情報（推奨 1600×600px）', 'image' ),
+		'banner_business_image' => array( 'banners', '事業内容（推奨 1600×600px）', 'image' ),
+		'banner_news_image'     => array( 'banners', 'お知らせ（推奨 1600×600px）', 'image' ),
+		'banner_column_image'   => array( 'banners', 'コラム（推奨 1600×600px）', 'image' ),
+		'banner_recruit_image'  => array( 'banners', '採用情報（推奨 1600×600px）', 'image' ),
+		'banner_contact_image'  => array( 'banners', 'お問い合わせ（推奨 1600×600px）', 'image' ),
+		'page_hero_image'       => array( 'banners', 'その他のページ共通（プライバシーポリシー・サイトマップ等）', 'image' ),
 		'hero_btn_label'    => array( 'hero', 'ボタンのラベル', 'text' ),
 		'hero_btn_url'      => array( 'hero', 'ボタンのリンク先', 'text' ),
 

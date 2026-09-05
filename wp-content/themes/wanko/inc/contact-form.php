@@ -49,6 +49,9 @@ function wanko_contact_handle() {
 	);
 	$result['values'] = $v;
 
+	if ( ! in_array( $v['type'], wanko_contact_types(), true ) ) {
+		$result['errors'][] = 'お問い合わせ種別を選択してください。';
+	}
 	if ( '' === $v['name'] ) {
 		$result['errors'][] = 'お名前を入力してください。';
 	}
@@ -61,9 +64,6 @@ function wanko_contact_handle() {
 	if ( ! $v['agree'] ) {
 		$result['errors'][] = 'プライバシーポリシーへの同意が必要です。';
 	}
-	if ( ! in_array( $v['type'], wanko_contact_types(), true ) ) {
-		$result['errors'][] = 'お問い合わせ種別を選択してください。';
-	}
 	if ( $result['errors'] ) {
 		$result['status'] = 'error';
 		return $result;
@@ -73,10 +73,10 @@ function wanko_contact_handle() {
 	$site    = get_bloginfo( 'name' );
 	$subject = sprintf( '【%s】お問い合わせ（%s）', $site, $v['type'] );
 	$body    = "ウェブサイトのお問い合わせフォームから送信されました。\n\n"
+		. "■お問い合わせ種別\n" . $v['type'] . "\n\n"
 		. "■お名前\n" . $v['name'] . "\n\n"
 		. "■メールアドレス\n" . $v['email'] . "\n\n"
 		. "■電話番号\n" . ( $v['tel'] ? $v['tel'] : '（未入力）' ) . "\n\n"
-		. "■お問い合わせ種別\n" . $v['type'] . "\n\n"
 		. "■お問い合わせ内容\n" . $v['message'] . "\n\n"
 		. "----\n送信日時: " . wp_date( 'Y-m-d H:i' ) . "\nIP: " . sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) ) . "\n";
 	$headers = array( 'Reply-To: ' . $v['name'] . ' <' . $v['email'] . '>' );
@@ -125,6 +125,17 @@ function wanko_contact_form() {
 		<p class="wform__hp" aria-hidden="true"><label>Website<input type="text" name="wanko_website" tabindex="-1" autocomplete="off"></label></p>
 
 		<div class="wform__row">
+			<label class="wform__label" for="wanko_type">お問い合わせ種別<span class="req">必須</span></label>
+			<div class="wform__field">
+				<select id="wanko_type" name="wanko_type" required>
+					<option value="" <?php selected( $v['type'], '' ); ?>>選択してください</option>
+					<?php foreach ( wanko_contact_types() as $t ) : ?>
+						<option value="<?php echo esc_attr( $t ); ?>" <?php selected( $v['type'], $t ); ?>><?php echo esc_html( $t ); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</div>
+		</div>
+		<div class="wform__row">
 			<label class="wform__label" for="wanko_name">お名前<span class="req">必須</span></label>
 			<div class="wform__field"><input type="text" id="wanko_name" name="wanko_name" value="<?php echo esc_attr( $v['name'] ); ?>" placeholder="例）山田 花子" required autocomplete="name"></div>
 		</div>
@@ -135,17 +146,6 @@ function wanko_contact_form() {
 		<div class="wform__row">
 			<label class="wform__label" for="wanko_tel">電話番号<span class="opt">任意</span></label>
 			<div class="wform__field"><input type="tel" id="wanko_tel" name="wanko_tel" value="<?php echo esc_attr( $v['tel'] ); ?>" placeholder="例）06-0000-0000" autocomplete="tel"></div>
-		</div>
-		<div class="wform__row">
-			<label class="wform__label" for="wanko_type">お問い合わせ種別<span class="req">必須</span></label>
-			<div class="wform__field">
-				<select id="wanko_type" name="wanko_type" required>
-					<option value="" <?php selected( $v['type'], '' ); ?>>選択してください</option>
-					<?php foreach ( wanko_contact_types() as $t ) : ?>
-						<option value="<?php echo esc_attr( $t ); ?>" <?php selected( $v['type'], $t ); ?>><?php echo esc_html( $t ); ?></option>
-					<?php endforeach; ?>
-				</select>
-			</div>
 		</div>
 		<div class="wform__row">
 			<label class="wform__label" for="wanko_message">お問い合わせ内容<span class="req">必須</span></label>
