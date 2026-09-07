@@ -48,8 +48,29 @@ WordPress のファイルは `wp/` に置いたまま、公開URLだけをドメ
 3. `public_html/wanko.co.jp/wp/.htaccess` があれば `public_html/wanko.co.jp/` にコピー（なければ手順5で自動生成）。
 4. 現行サイトの `public_html/wanko.co.jp/index.html` を `index_old.html` にリネーム（旧サイトの他のフォルダはそのままで構いません。後日削除）。
 5. 管理画面 → 設定 → パーマリンク → 「変更を保存」を1回押す。
-6. 設定 → 表示設定 の「インデックスしない」チェックを外す。
+6. 設定 → 表示設定 の「インデックスしない」チェックを外す（外すと `https://wanko.co.jp/wp-sitemap.xml` が自動生成されます）。
 7. `https://wanko.co.jp/` と `https://wanko.co.jp/company/` などを開いて表示を確認。
+
+### 3. 公開後のSEO作業（切り替え当日〜翌日）
+
+1. `public_html/wanko.co.jp/robots.txt`（旧サイトのもの）を次の内容に書き換える：
+   ```
+   User-agent: *
+   Disallow: /wp/wp-admin/
+   Allow: /wp/wp-admin/admin-ajax.php
+   Sitemap: https://wanko.co.jp/wp-sitemap.xml
+   ```
+2. 旧サイトの `sitemap.xml` があれば削除（新しいサイトマップは WordPress が自動生成）。
+3. Google Search Console に `https://wanko.co.jp/` を登録し、サイトマップ `https://wanko.co.jp/wp-sitemap.xml` を送信。
+4. 旧サイトのURL（例 `/company.html`）が検索結果に残っている場合は、`.htaccess` に新URLへの301リダイレクトを追加（旧URL一覧はバックアップの `index.html` 等から確認）。
+
+### テーマ側で対応済みのSEO
+
+- ページ別 title / meta description（外観 › カスタマイズ › SEO で編集可）
+- OGP / Twitterカード（記事はアイキャッチ、その他は `assets/img/og-default.jpg`。カスタマイズで差し替え可）
+- 構造化データ（Organization、Article／NewsArticle、BreadcrumbList）
+- ファビコン（`assets/img/favicon.ico` ほか。外観 › カスタマイズ › サイト基本情報で「サイトアイコン」を設定するとそちらが優先）
+- アイキャッチ画像の alt は未設定なら記事タイトルを自動で使用
 
 **元に戻す場合**：`index_old.html` を `index.html` に戻し、`public_html/wanko.co.jp/index.php` と `public_html/wanko.co.jp/.htaccess` を削除、設定 → 一般 の「サイトアドレス」を `https://wanko.co.jp/wp` に戻す。
 

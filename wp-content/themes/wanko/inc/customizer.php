@@ -137,6 +137,18 @@ function wanko_defaults() {
 		'sns_instagram'    => '',
 		'sns_x'            => '',
 		'sns_line'         => '',
+
+		// SEO.
+		'seo_home_title'   => 'ペット用品の卸売・ペットフード定期便',
+		'seo_desc_default' => '合同会社わんわんわんこは、大阪市西区のペット用品・ペットおやつの卸売会社です。猫用フードの定期便「にゃんにゃんデリバリーフーズ」を運営し、犬用フードの定期便・ペット総合ショップの開設を準備しています。',
+		'seo_desc_home'    => '合同会社わんわんわんこは、ペット用品・ペットおやつの卸売・販売と、猫用フード定期便「にゃんにゃんデリバリーフーズ」を通じて、飼い主さまとペットに「おいしい」と「安心」をお届けする大阪の会社です。',
+		'seo_desc_company' => '合同会社わんわんわんこの企業情報。代表のごあいさつ、会社概要（所在地・連絡先・事業内容）、私たちがお約束する4つのこだわりをご紹介します。',
+		'seo_desc_business'=> '合同会社わんわんわんこの事業内容。ペット用品・おやつの卸売（主要取引メーカー一覧）、猫用フード定期便「にゃんにゃんデリバリーフーズ」、準備中の犬用定期便・ペット総合ショップをご紹介します。',
+		'seo_desc_news'    => '合同会社わんわんわんこからのお知らせ一覧。サービスの開始・休業日・新着情報をお届けします。',
+		'seo_desc_column'  => 'わんちゃん・ねこちゃんとの暮らしに役立つコラム。フード選び、健康、季節のケアなど、ペット用品の卸売会社ならではの視点でお届けします。',
+		'seo_desc_recruit' => '合同会社わんわんわんこの採用情報。「ペットが好き」を仕事にしたい方を募集しています。募集要項・大切にしていること・応募方法をご覧ください。',
+		'seo_desc_contact' => '合同会社わんわんわんこへのお問い合わせ。にゃんにゃんデリバリーフーズ、法人のお取引・卸販売、採用に関するご相談はこちらのフォームまたはお電話でどうぞ。',
+		'seo_og_image'     => '',
 		'footer_note'      => '',
 	);
 }
@@ -181,6 +193,7 @@ function wanko_customize_register( $wp_customize ) {
 		'movie'    => 'トップ：ムービー（任意）',
 		'contact'  => 'お問い合わせ',
 		'footer'   => 'フッター・SNS',
+		'seo'      => 'SEO（検索結果・SNSシェアの表示）',
 	);
 	$i = 10;
 	foreach ( $sections as $id => $title ) {
@@ -303,6 +316,17 @@ function wanko_customize_register( $wp_customize ) {
 		'sns_instagram'     => array( 'footer', 'Instagram URL', 'url' ),
 		'sns_x'             => array( 'footer', 'X（旧Twitter）URL', 'url' ),
 		'sns_line'          => array( 'footer', 'LINE公式アカウント URL', 'url' ),
+
+		'seo_home_title'    => array( 'seo', 'トップのタイトル（「｜会社名」が後ろに付きます）', 'text' ),
+		'seo_desc_home'     => array( 'seo', 'トップの説明文（120文字目安）', 'textarea' ),
+		'seo_desc_company'  => array( 'seo', '企業情報の説明文', 'textarea' ),
+		'seo_desc_business' => array( 'seo', '事業内容の説明文', 'textarea' ),
+		'seo_desc_news'     => array( 'seo', 'お知らせ一覧の説明文', 'textarea' ),
+		'seo_desc_column'   => array( 'seo', 'コラム一覧の説明文', 'textarea' ),
+		'seo_desc_recruit'  => array( 'seo', '採用情報の説明文', 'textarea' ),
+		'seo_desc_contact'  => array( 'seo', 'お問い合わせの説明文', 'textarea' ),
+		'seo_desc_default'  => array( 'seo', 'その他ページ共通の説明文', 'textarea' ),
+		'seo_og_image'      => array( 'seo', 'SNSシェア用画像（推奨 1200×630px・空欄でロゴ入りの既定画像）', 'image' ),
 		'footer_note'       => array( 'footer', 'フッター補足文（任意）', 'textarea' ),
 	);
 

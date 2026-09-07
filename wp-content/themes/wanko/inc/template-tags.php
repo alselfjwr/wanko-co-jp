@@ -163,6 +163,7 @@ function wanko_breadcrumb( $items ) {
 		}
 	}
 	echo '</ol></div></nav>';
+	wanko_seo_breadcrumb_jsonld( $items );
 }
 
 /**
@@ -203,7 +204,7 @@ function wanko_shop_card( $key ) {
 	?>
 	<div class="shop-block<?php echo $url ? '' : ' is-soon'; ?>">
 		<a class="photo-tile" href="<?php echo esc_url( $url ? $url : '#shops' ); ?>"<?php echo $url ? ' target="_blank" rel="noopener"' : ' aria-disabled="true" tabindex="-1"'; ?>>
-			<?php if ( $image ) : ?><img src="<?php echo esc_url( $image ); ?>" alt="" loading="lazy"><?php endif; ?>
+			<?php if ( $image ) : ?><img src="<?php echo esc_url( $image ); ?>" alt="<?php echo esc_attr( $name ); ?>のイメージ写真" loading="lazy"><?php endif; ?>
 			<span class="photo-tile__text">
 				<span class="photo-tile__en"><?php echo esc_html( $en ); ?></span>
 				<span class="photo-tile__ja"><?php echo esc_html( $name ); ?></span>

@@ -13,7 +13,7 @@ $compact = ! empty( $args['compact'] );
 <section class="section section--alt section--commitment" id="commitment">
 	<div class="bleed-split bleed-split--left bleed-split--wide bleed-split--stagger commitment<?php echo $image ? ' has-image' : ''; ?>">
 		<?php if ( $image ) : ?>
-			<figure class="bleed-split__image commitment__image"><img src="<?php echo esc_url( $image ); ?>" alt="" width="1600" height="900"></figure>
+			<figure class="bleed-split__image commitment__image"><img src="<?php echo esc_url( $image ); ?>" alt="私たちのお約束：わんわんわんこの猫たち" width="1600" height="900"></figure>
 		<?php endif; ?>
 		<div class="bleed-split__text commitment__text">
 			<?php wanko_section_title( 'Commitment', '私たちのお約束', 'left' ); ?>
