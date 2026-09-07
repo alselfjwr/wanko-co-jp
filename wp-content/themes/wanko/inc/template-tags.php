@@ -99,6 +99,23 @@ function wanko_section_title( $en, $ja, $align = 'center' ) {
 }
 
 /**
+ * Mobile (portrait) variant of a theme image: "photo-hero.jpg" → "photo-hero-sp.jpg"
+ * when that file exists in the theme. Returns '' for uploaded images without a variant.
+ *
+ * @param string $url Image URL.
+ * @return string Variant URL or ''.
+ */
+function wanko_sp_variant( $url ) {
+	$base = WANKO_URI . '/assets/img/';
+	if ( 0 !== strpos( $url, $base ) ) {
+		return '';
+	}
+	$file = substr( $url, strlen( $base ) );
+	$sp   = preg_replace( '/\.(jpe?g|png|webp)$/i', '-sp.$1', $file );
+	return ( $sp !== $file && file_exists( WANKO_DIR . '/assets/img/' . $sp ) ) ? $base . $sp : '';
+}
+
+/**
  * Banner image for the current inner page: a per-page customizer setting
  * (banner_{key}_image) with the shared page_hero_image as fallback.
  *

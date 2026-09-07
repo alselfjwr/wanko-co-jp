@@ -20,7 +20,11 @@ if ( $btn_url && 0 === strpos( $btn_url, '/' ) ) {
 			<img src="<?php echo esc_url( WANKO_URI . '/assets/img/hero-default.svg' ); ?>" alt="">
 		<?php else : ?>
 			<?php foreach ( $hero_slides as $i => $slide ) : ?>
-				<img class="hero__slide<?php echo 0 === $i ? ' is-active' : ''; ?>" src="<?php echo esc_url( $slide ); ?>" alt="" width="1600" height="1000"<?php echo 0 === $i ? ' fetchpriority="high"' : ''; ?>>
+				<?php $sp = wanko_sp_variant( $slide ); ?>
+				<picture class="hero__slide<?php echo 0 === $i ? ' is-active' : ''; ?>">
+					<?php if ( $sp ) : ?><source media="(max-width: 860px)" srcset="<?php echo esc_url( $sp ); ?>"><?php endif; ?>
+					<img src="<?php echo esc_url( $slide ); ?>" alt="" width="1600" height="1000"<?php echo 0 === $i ? ' fetchpriority="high"' : ''; ?>>
+				</picture>
 			<?php endforeach; ?>
 		<?php endif; ?>
 	</div>
