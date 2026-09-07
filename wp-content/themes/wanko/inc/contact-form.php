@@ -69,7 +69,8 @@ function wanko_contact_handle() {
 		return $result;
 	}
 
-	$to      = wanko_get( 'company_email' ) ? wanko_get( 'company_email' ) : get_option( 'admin_email' );
+	$to      = wanko_get( 'contact_notify_email' );
+	$to      = is_email( $to ) ? $to : ( wanko_get( 'company_email' ) ? wanko_get( 'company_email' ) : get_option( 'admin_email' ) );
 	$site    = get_bloginfo( 'name' );
 	$subject = sprintf( '【%s】お問い合わせ（%s）', $site, $v['type'] );
 	$body    = "ウェブサイトのお問い合わせフォームから送信されました。\n\n"
